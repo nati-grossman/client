@@ -5,13 +5,8 @@ import { FormConfig } from '../formValidation/formConfigTypes'; // אם יש ל�
 import { useTranslation } from "react-i18next";
 import { TFunction } from "i18next";
 import { postData } from '../services/apiService';
-
-
-
-interface RegisterResponse {
-  Message: string;
-  ok: string;
-}
+import { UserService } from "services/userService";
+import { RegisterRequest } from "types/Registration/RegisterRequest";
 
 
 const createRegisterFormConfig = (t: TFunction): FormConfig => ({
@@ -67,28 +62,16 @@ const createRegisterFormConfig = (t: TFunction): FormConfig => ({
   ],
   buttons: [{ type: "submit", label: t("register"), className: "btn btn-primary" }],
   onSubmit: async (formData) => {
-    const data = {
+    const userService = new UserService();
+    let data : RegisterRequest = {
       FirstName: formData.firstName,      
       LastName: formData.lastName,       
       Telephone: formData.telephone,      
-      EmailAdress: formData.email,       
-      Password: formData.password         
+      Email: formData.email,       
+      Password: formData.password,
+      ConfirmPassword: formData.confirmPassword     
     };
-    const endpoint = "/api/user/registration";
-
-    try {
-      const response = await postData<RegisterResponse>(endpoint, formData);
-
-      debugger
-      if (response.ok) {
-        //const token = await response.json() as { token: string };  
-        //console.log("Login successful, token:", token);
-      } else {
-        console.log("Login failed");
-      }
-    } catch (error: unknown) {
-      console.error("Error:", error);
-    }
+    const response = await userService.register(data);
   },
 });
 
