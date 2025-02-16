@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 const styles: { button: React.CSSProperties } = {
     button: {
       position: "fixed",
-      top: "20px",
+      top: "60px",
       right: "20px",
       padding: "10px 15px",
       fontSize: "16px",

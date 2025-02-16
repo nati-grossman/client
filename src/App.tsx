@@ -1,28 +1,35 @@
 import React from 'react';
-import LoginPage from './components/LoginPage'; 
-import RegisterPage from './components/RegisterPage';
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import Navigation from './components/Navigation';
+import Footer from './components/Footer';
+import RoutesComponent from './components/RoutesComponent';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HomePage from 'components/HomePage';
+import { BrowserRouter } from 'react-router-dom';
 
 
 const App: React.FC = () => {
-  // <RegisterPage /> <LoginPage />
 
   return (
     <>
       <LanguageSwitcher />
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<HomePage />}></Route>
-          <Route path='/login' element={<LoginPage />}></Route>
-          <Route path='/register' element={<RegisterPage />}></Route>
-          <Route path='/homePage' element={<HomePage />}></Route>
-        </Routes>
+      <BrowserRouter>        
+        <div className="main-content">
+          <Navigation />
+          <div className="container mt-4 nav-footer-spacing">
+            <RoutesComponent />
+          </div>
+          <Footer />
+        </div>
       </BrowserRouter>
     </>
   );
 };
 
 export default App;
+
+/*
+for nati : 
+npm install --force
+npm start
+npm install react-bootstrap --legacy-peer-deps
+*/
