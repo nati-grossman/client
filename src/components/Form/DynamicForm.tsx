@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from "react-i18next";
-import { FormConfig } from '../formValidation/formConfigTypes';  
+import { FormConfig } from '../../formValidation/formConfigTypes';  
 //import { validateEmail } from '../validate/exports'
 
 

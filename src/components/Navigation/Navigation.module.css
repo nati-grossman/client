@@ -1,0 +1,40 @@
+:global(#navbar-dropdown-sale.dropdown-toggle::after) {
+    display: none !important; /* מסיר את האייקון רק ב-Navigation */
+  }
+  
+  :global(#navbar-dropdown-sale.dropdown-toggle:hover) {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  :global(#navbar-dropdown-sale .dropdown-menu) {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+
+  :global(#navbar-dropdown-rent.dropdown-toggle::after) {
+    display: none !important; /* מסיר את האייקון רק ב-Navigation */
+  }
+  
+  :global(#navbar-dropdown-rent.dropdown-toggle:hover) {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  :global(#navbar-dropdown-rent .dropdown-menu) {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+
+  :global(#navbar-dropdown-shabbat.dropdown-toggle::after) {
+    display: none !important; /* מסיר את האייקון רק ב-Navigation */
+  }
+  
+  :global(#navbar-dropdown-shabbat.dropdown-toggle:hover) {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  :global(#navbar-dropdown-shabbat .dropdown-menu) {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }

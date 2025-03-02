@@ -1,8 +1,8 @@
 import React from 'react';
 import LanguageSwitcher from "./components/LanguageSwitcher";
-import Navigation from './components/Navigation';
-import Footer from './components/Footer';
-import RoutesComponent from './components/RoutesComponent';
+import Navigation from './components/Navigation/Navigation';
+import Footer from './components/Footer/Footer';
+import RoutesComponent from './components/Routes/RoutesComponent';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 
