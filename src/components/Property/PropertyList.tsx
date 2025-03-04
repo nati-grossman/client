@@ -14,9 +14,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ category }) => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        debugger
         const response = await fetch(`/Data/${category}.json`);
-        debugger
         const data = await response.json();
         setProperties(data.apartments);
       } catch (error) {
@@ -38,12 +36,17 @@ const PropertyList: React.FC<PropertyListProps> = ({ category }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-      {properties.map((property) => (
-        <PropertyCard key={property.id} property={property} />
-      ))}
+    <div className="container p-4">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {properties.map((property) => (
+          <div key={property.id} className="col">
+            <PropertyCard property={property} />
+          </div>
+        ))}
+      </div>
     </div>
   );
+  
 };
 
 export default PropertyList;

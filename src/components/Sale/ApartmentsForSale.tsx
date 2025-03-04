@@ -11,7 +11,7 @@ const ApartmentsForSale: React.FC = () => {
   return (
     <div className="p-6">
       <SectionHeader title="דירות למכירה" subtitle="מצאו את הדירה המושלמת לקנייה" />
-      <PropertyFilters />
+      <PropertyFilters category="for-sale"/>
       <PropertyList category="for-sale" />
     </div>
   );

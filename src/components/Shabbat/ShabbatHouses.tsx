@@ -11,7 +11,7 @@ const ShabbatHouses: React.FC = () => {
   return (
     <div className="p-6">
       <SectionHeader title="בתים לשבת" subtitle="בתים נוחים ומאובזרים לשבת" />
-      <PropertyFilters />
+      <PropertyFilters category="for-shabbat"/>
       <PropertyList category="for-shabbat" />
     </div>
   );

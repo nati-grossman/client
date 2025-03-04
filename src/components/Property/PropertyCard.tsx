@@ -10,20 +10,31 @@ const PropertyCard: React.FC<{ property: ApartmentCard }> = ({ property }) => {
   };
 
   return (
-    <div
-      className="border rounded-lg shadow-lg overflow-hidden w-80 bg-white hover:shadow-2xl transition-shadow duration-300 cursor-pointer"
+    <div 
+      className="card shadow-lg border-0 rounded-lg overflow-hidden w-80 text-end cursor-pointer"
       onClick={handleClick}
+      style={{
+        height: "410px", // גובה קבוע לכרטיס
+        transition: "transform 0.3s ease, box-shadow 0.3s ease", // אפקט מעבר חלק
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"} // הגדלת הכרטיס כשמעבירים עליו את העכבר
+      onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"} // החזרת הגודל המקורי כשהעכבר יוצא
     >
-      <img
-        src={property.image}
-        alt={property.title}
-        className="w-full h-48 object-cover"
+      {/* תמונה מקומית */}
+      <img 
+        src="/images/living room.jpg"  
+        alt={property.title} 
+        className="card-img-top"
+        style={{
+          height: "170px", 
+          objectFit: "cover",
+        }} 
       />
-      <div className="p-4">
-        <h3 className="text-lg font-bold text-gray-800">{property.title}</h3>
-        <p className="text-gray-500">{property.location}</p>
-        <p className="text-blue-600 font-semibold text-lg mt-2">{property.price}</p>
-        <p className="text-gray-700 mt-2 text-sm">{property.shortDescription}</p>
+      <div className="card-body" style={{ direction: "rtl" }}>
+        <h3 className="card-title text-dark">{property.title}</h3>
+        <p className="text-muted">{property.location}</p>
+        <p className="text-primary fw-bold fs-5 mt-2">{property.price}</p>
+        <p className="text-secondary mt-2 small">{property.shortDescription}</p>
       </div>
     </div>
   );
