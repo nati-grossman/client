@@ -4,12 +4,10 @@ import HomePage from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
-import PropertyList from '../Property/PropertyList';
-import ForSale from '../ForSale/ForSale';
+import ApartmentsForRent from '../Rent/ApartmentsForRent';
+import ApartmentsForSale from '../Sale/ApartmentsForSale';
+import ShabbatHouses from '../Shabbat/ShabbatHouses';
 
-import ApartmentPage from '../ApartmentPage/ApartmentPage';
-
-import PropertiesForSale from '../Sale/PropertiesForSale';
 
 
 const RoutesComponent: React.FC = () => {
@@ -20,28 +18,9 @@ const RoutesComponent: React.FC = () => {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/homePage" element={<HomePage />} />
 
-
-
-      <Route path="/for-sale" element={<PropertiesForSale />} />
-      {/*
-      <Route path="/for-sale" element={<ForSale />} />
-      <Route path="/for-sale/:houseId" element={<ForSale />} />
-      */}
-<Route 
-          path="/apartments/:neighborhood" 
-          element={<ApartmentPage />} 
-        />
-
-      {/*
-      <Route path="/for-sale" element={<PropertyList category="for-sale" />} />
-        <Route path="/for-sale/:propertyId" element={<PropertyList category="for-sale" />} />
-      */}
-
-        <Route path="/for-rent" element={<PropertyList category="for-rent" />} />
-        <Route path="/for-rent/:propertyId" element={<PropertyList category="for-rent" />} />
-
-        <Route path="/shabbat" element={<PropertyList category="shabbat" />} />
-        <Route path="/shabbat/:propertyId" element={<PropertyList category="shabbat" />} />
+      <Route path="/rent/:location" element={<ApartmentsForRent />} />
+      <Route path="/sales/:location" element={<ApartmentsForSale />} />
+      <Route path="/shabbat/:location" element={<ShabbatHouses />} />
     </Routes>
   );
 };

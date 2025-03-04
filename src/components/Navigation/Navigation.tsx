@@ -22,7 +22,7 @@ const Navigation: React.FC = () => {
 
   return (
     <>
-        <Navbar dir="rtl" variant="dark" expand="lg" style={{backgroundColor: 'rgb(96, 197, 140)'}}>
+        <Navbar dir="rtl" variant="dark" expand="lg" style={{backgroundColor: '#e9d1a2'}}>
       <Navbar.Brand as={Link} to="/" className='mx-3'>מיד ליד</Navbar.Brand>
       <Navbar.Toggle aria-controls="navbar-nav" />
       <Navbar.Collapse id="navbar-nav">
@@ -40,7 +40,7 @@ const Navigation: React.FC = () => {
             onMouseLeave={handleMouseLeave}
             className={styles.dropdownToggle}
           >
-            <NavDropdown.Item as={Link} to="/for-sale/house1">דירות למכירה בבית שמש</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/sales/tel-aviv">דירות למכירה בתל אביב</NavDropdown.Item>
           </NavDropdown>
 
           {/* דירות להשכרה */}
@@ -52,7 +52,7 @@ const Navigation: React.FC = () => {
             onMouseLeave={handleMouseLeave}
             className={styles.dropdownToggle}
           >
-            <NavDropdown.Item as={Link} to="/apartments/ramatim">דירות להשכרה בבית שמש</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/rent/tel-aviv">דירות להשכרה בבית שמש</NavDropdown.Item>
           </NavDropdown>
 
           {/* דירות לשבת */}
@@ -64,8 +64,9 @@ const Navigation: React.FC = () => {
             onMouseLeave={handleMouseLeave}
             className={styles.dropdownToggle}
           >
-            <NavDropdown.Item as={Link} to="/shabbat/house1">דירות לשבת בבית שמש</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/shabbat/tel-aviv">דירות לשבת בבית שמש</NavDropdown.Item>
           </NavDropdown>
+
         </Nav>
 
 

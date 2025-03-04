@@ -1,5 +1,5 @@
 :global(#navbar-dropdown-sale.dropdown-toggle::after) {
-    display: none !important; /* מסיר את האייקון רק ב-Navigation */
+    display: none !important; 
   }
   
   :global(#navbar-dropdown-sale.dropdown-toggle:hover) {
@@ -13,7 +13,7 @@
   
 
   :global(#navbar-dropdown-rent.dropdown-toggle::after) {
-    display: none !important; /* מסיר את האייקון רק ב-Navigation */
+    display: none !important; 
   }
   
   :global(#navbar-dropdown-rent.dropdown-toggle:hover) {
@@ -27,7 +27,7 @@
 
 
   :global(#navbar-dropdown-shabbat.dropdown-toggle::after) {
-    display: none !important; /* מסיר את האייקון רק ב-Navigation */
+    display: none !important; 
   }
   
   :global(#navbar-dropdown-shabbat.dropdown-toggle:hover) {
