@@ -13,7 +13,7 @@ const ApartmentsForRent: React.FC = () => {
     <div className="p-6">
       <SectionHeader title="דירות להשכרה" subtitle="מצאו את הדירה המושלמת עבורכם" />
       <PropertyFilters />
-      {/* <PropertyList type="rent" /> */}
+      <PropertyList category="for-rent" />
     </div>
   );
 };

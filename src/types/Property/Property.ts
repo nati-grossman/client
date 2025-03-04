@@ -1,5 +1,5 @@
 export interface PropertyListProps {
-  category: "for-sale" | "for-rent" | "shabbat";
+  category: "for-sale" | "for-rent" | "for-shabbat";
 }
   
 

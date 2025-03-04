@@ -14,9 +14,9 @@ const PropertyList: React.FC<PropertyListProps> = ({ category }) => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        
-        category = 'for-sale';
+        debugger
         const response = await fetch(`/Data/${category}.json`);
+        debugger
         const data = await response.json();
         setProperties(data.apartments);
       } catch (error) {
