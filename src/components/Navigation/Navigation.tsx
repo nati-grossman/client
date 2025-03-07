@@ -9,28 +9,22 @@ import {
   Button,
 } from "react-bootstrap";
 import styles from "./Navigation.module.css";
+import { NavigationService } from "services/navigationService";
+import { Dropdown } from "types/Navigation/NavigationResponse";
+
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //import { faUser } from '@fortawesome/free-solid-svg-icons';
-
-interface DropdownItem {
-  label: string;
-  link: string;
-}
-
-interface Dropdown {
-  title: string;
-  id: string;
-  items: DropdownItem[];
-}
 
 const Navigation: React.FC = () => {
   const [dropdowns, setDropdowns] = useState<Dropdown[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/Data/dropdown.json")
-      .then((res) => res.json())
-      .then((data: Dropdown[]) => setDropdowns(data))
+    const navigationService = new NavigationService();
+
+    navigationService
+      .getDropdownItems()
+      .then((data: Dropdown[]) => setDropdowns(data)) // מקבל כבר JSON, אין צורך ב-`res.json()`
       .catch((err) => console.error("Failed to fetch dropdowns", err));
   }, []);
 
