@@ -1,4 +1,5 @@
 import { Navbar, Nav } from "react-bootstrap";
+import "./MobileMenuOverlay.css";
 
 interface MobileMenuOverlayProps {
   isMobileMenuOpen: boolean;
