@@ -1,0 +1,80 @@
+/* עיצוב לפופ-אפ */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 100%;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding-top: 50px;
+  transition: left 0.5s ease-in-out, visibility 0s 0.5s;
+  visibility: hidden;
+}
+/* כאשר הפופ-אפ פתוח, נעבור את ה-left ל-0 */
+.mobile-menu-overlay.open {
+  left: 0;
+  visibility: visible;
+  transition: left 0.5s ease-in-out;
+}
+/* עיצוב לתוכן הפופ-אפ */
+.mobile-menu-content {
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  width: 90%;
+  height: 90%;
+  max-width: 400px;
+  text-align: center;
+  border-radius: 8px;
+  overflow-y: auto;
+  transition: transform 0.3s ease-out;
+}
+/* תיקון עיצוב Navbar למובייל */
+@media (max-width: 991px) {
+  .navbar-toggler {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .navbar-brand {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .navbar .d-flex.align-items-center {
+    margin-left: auto;
+    margin-right: 10px;
+  }
+}
+/* מיקום האיקס בתוך הפופ-אפ */
+.close-icon {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  text-align: left;
+  transition: color 0.3s ease-in-out;
+}
+/* שינוי צבע האיקס בהובר */
+.close-icon:hover {
+  color: red;
+}
+/* אפקט פתיחה של תתי קטגוריות */
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+}
+.submenu.open {
+  max-height: 200px;
+  opacity: 1;
+  transform: translateY(0);
+}
