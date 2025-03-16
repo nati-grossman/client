@@ -65,3 +65,41 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* רווח בין האייקון לתוכן בפופ-אפ */
+.content-spacing {
+  height: 60px; /* תוכל לשנות את הערך בהתאם לצורך */
+}
+
+/* עיצוב עבור כל קטגוריה */
+.category-item {
+  width: 100%;
+  border-bottom: 1px solid #ddd; /* פס דק בין כל קטגוריה */
+  padding: 10px 0;
+  justify-content: flex-end; /* מציב את כל התוכן לימין */
+  align-items: center;
+}
+
+/* עיצוב תוכן הקטגוריה (שם + אייקון) */
+.category-content {
+  display: flex;
+  justify-content: flex-end; /* כל התוכן יהיה מימין */
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* אייקון מצד ימין */
+.category-icon {
+  margin-left: 10px; /* ריווח בין האייקון לשם הקטגוריה */
+  font-size: 16px;
+  color: #333;
+}
+
+/* שם הקטגוריה */
+.category-title {
+  text-align: right; /* מיישר את הטקסט לימין */
+  font-size: 18px;
+  color: #333;
+  margin-right: 10px; /* ריווח בין שם הקטגוריה לאייקון */
+}
