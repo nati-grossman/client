@@ -35,15 +35,19 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ user }) => {
         {/* תמונת משתמש וכפתור פרופיל */}
         <div className="align-items-center d-flex m-0 me-1">
           {user.loggedIn ? (
-            <Image
-              src={user.avatar}
-              roundedCircle
-              width={30}
-              height={30}
-              className="me-2"
-            />
+            <div className="me-2 user-avatar">
+              <Image
+                src={user.avatar}
+                roundedCircle
+                width={30}
+                height={30}
+                className="me-2"
+              />
+            </div>
           ) : (
-            <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
+            <div className="me-2 user-avatar">
+              <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
+            </div>
           )}
           <Button variant="success">פרסום מודעה</Button>
         </div>

@@ -3,12 +3,13 @@ import MobileNavbar from "./MobileNavbar";
 import MobileMenuOverlay from "./MobileMenuOverlay";
 import { useState } from "react";
 import "./Header.css";
+import { flow } from "mobx";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // דמוי אובייקט 'user' (אם אין לך עדיין הגדרה של המשתמש)
   const user = {
-    loggedIn: true, // אם המשתמש מחובר
+    loggedIn: false, // אם המשתמש מחובר
     avatar: "https://via.placeholder.com/30", // כתובת לתמונה
   };
   const toggleMobileMenu = () => {

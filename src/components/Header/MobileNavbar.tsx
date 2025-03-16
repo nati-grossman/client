@@ -18,21 +18,23 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
       className="d-flex d-lg-none header-navbar"
     >
       <Container>
+        {/* כפתור פרופיל בצד שמאל */}
+        <div className="d-flex align-items-center">
+          <Button variant="outline-primary" className="btn-success p-2">
+            האזור האישי
+          </Button>
+        </div>
+
+        {/* לוגו במרכז */}
+        <Navbar.Brand href="#" className="mx-auto">
+          לוגו
+        </Navbar.Brand>
+
         {/* כפתור תפריט (3 פסים) בצד ימין */}
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
           onClick={toggleMobileMenu}
         />
-        {/* לוגו במרכז */}
-        <Navbar.Brand href="#" className="mx-auto">
-          לוגו
-        </Navbar.Brand>
-        {/* כפתור פרופיל בצד שמאל */}
-        <div className="d-flex align-items-center">
-          <Button variant="outline-primary" className="btn-success">
-            האזור האישי
-          </Button>
-        </div>
       </Container>
     </Navbar>
   );
