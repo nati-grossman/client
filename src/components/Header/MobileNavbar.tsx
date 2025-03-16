@@ -15,7 +15,7 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
       bg="light"
       variant="light"
       fixed="top"
-      className="d-flex d-lg-none"
+      className="d-flex d-lg-none header-navbar"
     >
       <Container>
         {/* כפתור תפריט (3 פסים) בצד ימין */}
@@ -29,8 +29,8 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
         </Navbar.Brand>
         {/* כפתור פרופיל בצד שמאל */}
         <div className="d-flex align-items-center">
-          <Button variant="outline-primary">
-            {user.loggedIn ? "פרופיל" : "התחברות"}
+          <Button variant="outline-primary" className="btn-success">
+            האזור האישי
           </Button>
         </div>
       </Container>
