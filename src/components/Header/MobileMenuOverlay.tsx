@@ -22,79 +22,83 @@ interface MobileMenuOverlayProps {
 //   subcategories: Subcategory[];
 // }
 
-const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(({
-  isMobileMenuOpen,
-  toggleMobileMenu,
-  user,
-  openCategory,
-  handleCategoryClick,
-}) => {
+const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
+  ({
+    isMobileMenuOpen,
+    toggleMobileMenu,
+    user,
+    openCategory,
+    handleCategoryClick,
+  }) => {
+    useEffect(() => {
+      categoriesStore.fetchCategories();
+    }, []);
 
-  useEffect(() => {
-    categoriesStore.fetchCategories();
-  }, []);
+    return (
+      <div className={`mobile-menu-overlay ${isMobileMenuOpen ? "open" : ""}`}>
+        <div className="mobile-menu-content">
+          {/* אייקון סגירה (X) */}
+          <span className="close-icon" onClick={toggleMobileMenu}>
+            ✖
+          </span>
 
-  return (
-    <div className={`mobile-menu-overlay ${isMobileMenuOpen ? "open" : ""}`}>
-      <div className="mobile-menu-content">
-        {/* אייקון סגירה (X) */}
-        <span className="close-icon" onClick={toggleMobileMenu}>
-          ✖
-        </span>
+          {/* רווח בין האייקון לתוכן */}
+          <div className="content-spacing" />
 
-        {/* רווח בין האייקון לתוכן */}
-        <div className="content-spacing" />
+          {/* לוגו */}
+          <div className="d-flex justify-content-center my-3">
+            <Navbar.Brand href="#">לוגו</Navbar.Brand>
+          </div>
 
-        {/* לוגו */}
-        <div className="d-flex justify-content-center my-3">
-          <Navbar.Brand href="#">לוגו</Navbar.Brand>
-        </div>
-
-        {/* תמונת משתמש */}
-        <div className="d-flex justify-content-center">
-          {user.loggedIn ? (
-            <div className="me-2 user-avatar">
-              <img
-                src={user.avatar}
-                alt="User Avatar"
-                className="rounded-circle"
-                width={50}
-                height={50}
-              />
-            </div>
-          ) : (
-            <div className="me-2 user-avatar">
-              <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
-            </div>
-          )}
-        </div>
-
-        {/* קטגוריות */}
-        <Nav className="flex-column text-center" style={{ marginTop: "40px" }}>
-          {categoriesStore.categories.map((category : Category) => (
-            <div key={category.categoryNumber} className="category-item">
-              <div
-                className="category-content"
-                onClick={() => handleCategoryClick(category.categoryName)}
-              >
-                {/* שם הקטגוריה */}
-                <div className="category-title">{category.categoryName}</div>
-                {/* אייקון */}
-                <FontAwesomeIcon icon={faHome} className="category-icon" />
+          {/* תמונת משתמש */}
+          <div className="d-flex justify-content-center">
+            {user.loggedIn ? (
+              <div className="me-2 user-avatar">
+                <img
+                  src={user.avatar}
+                  alt="User Avatar"
+                  className="rounded-circle"
+                  width={50}
+                  height={50}
+                />
               </div>
-              <div
-                className={`me-3 submenu text-end ${
-                  openCategory === category.categoryName ? "open" : ""
-                }`}
-              >
-                <></>
+            ) : (
+              <div className="me-2 user-avatar">
+                <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
               </div>
-            </div>
-          ))}
-        </Nav>
+            )}
+          </div>
+
+          {/* קטגוריות */}
+          <Nav
+            className="flex-column text-center"
+            style={{ marginTop: "40px" }}
+          >
+            {categoriesStore.categories.map((category: Category) => (
+              <div key={category.categoryNumber} className="category-item">
+                <div
+                  className="category-content"
+                  onClick={() => handleCategoryClick(category.categoryName)}
+                >
+                  {/* שם הקטגוריה */}
+                  <div className="category-title">{category.categoryName}</div>
+                  {/* אייקון */}
+                  <FontAwesomeIcon icon={faHome} className="category-icon" />
+                </div>
+                <div
+                  className={`me-3 submenu text-end ${
+                    openCategory === category.categoryName ? "open" : ""
+                  }`}
+                >
+                  <></>
+                </div>
+              </div>
+            ))}
+          </Nav>
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 export default MobileMenuOverlay;
