@@ -4,61 +4,28 @@ import { Navbar, Nav, NavDropdown, Button, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./DesktopNavbar.css"; // קובץ העיצוב המעודכן
+import { Category } from "types/Categories/Category";
+import { CategoriesService } from "services/categoriesService";
+import { categoriesStore } from "stores/Categories.store";
+import { observer } from "mobx-react-lite";
 
 interface DesktopNavbarProps {
   user: { loggedIn: boolean; avatar: string };
 }
 
-interface Subcategory {
-  id: string;
-  name: string;
-}
+// interface Category {
+//   id: string;
+//   name: string;
+//   subcategories: Subcategory[];
+// }
 
-interface Category {
-  id: string;
-  name: string;
-  subcategories: Subcategory[];
-}
-
-const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ user }) => {
+const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [categories, setCategories] = useState<Category[]>([]); // קטגוריות שיתקבלו מה-API
+  const [categories, setCategories] = useState<Category[]| null>([]); // קטגוריות שיתקבלו מה-API
   const navigate = useNavigate();
 
   useEffect(() => {
-    const mockCategories: Category[] = [
-      {
-        id: "1",
-        name: "קטגוריה 1",
-        subcategories: [
-          { id: "1-1", name: "תת קטגוריה 1" },
-          { id: "1-2", name: "תת קטגוריה 2" },
-        ],
-      },
-      {
-        id: "2",
-        name: "קטגוריה 2",
-        subcategories: [
-          { id: "2-1", name: "תת קטגוריה 3" },
-          { id: "2-2", name: "תת קטגוריה 4" },
-        ],
-      },
-      {
-        id: "3",
-        name: "קטגוריה 3",
-        subcategories: [
-          { id: "3-1", name: "תת קטגוריה 5" },
-          { id: "3-2", name: "תת קטגוריה 6" },
-        ],
-      },
-    ];
-
-    setCategories(mockCategories);
-    // קריאה ל-API להורדת הקטגוריות באמצעות fetch
-    /* fetch("/api/categories") // כאן תשנה את ה-URL לפי הצורך
-      .then((response) => response.json()) // המרת התגובה ל-json
-      .then((data) => setCategories(data)) // עדכון הקטגוריות
-      .catch((error) => console.error("Error fetching categories", error)); */
+    categoriesStore.fetchCategories();
   }, []);
 
   const handleMouseEnter = (id: string) => {
@@ -111,26 +78,22 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ user }) => {
 
         {/* קטגוריות במרכז */}
         <Nav className="mx-auto category-nav">
-          {categories.map((category) => (
+          {categoriesStore.categories?.map((category) => (
             <div
-              key={category.id}
+              key={category.categoryNumber}
               onMouseEnter={() =>
-                handleMouseEnter(`nav-dropdown-${category.id}`)
+                handleMouseEnter(`nav-dropdown-${category.categoryNumber}`)
               }
               onMouseLeave={handleMouseLeave}
             >
               <NavDropdown
-                title={category.name}
-                id={`nav-dropdown-${category.id}`}
+                title={category.categoryName}
+                id={`nav-dropdown-${category.categoryNumber}`}
                 className="custom-dropdown mx-2"
-                show={openDropdown === `nav-dropdown-${category.id}`}
-                onClick={() => handleClick(`nav-dropdown-${category.id}`)}
+                show={openDropdown === `nav-dropdown-${category.categoryNumber}`}
+                onClick={() => handleClick(`nav-dropdown-${category.categoryNumber}`)}
               >
-                {category.subcategories.map((subcategory) => (
-                  <NavDropdown.Item key={subcategory.id} href="#">
-                    {subcategory.name}
-                  </NavDropdown.Item>
-                ))}
+                <></>
               </NavDropdown>
             </div>
           ))}
@@ -141,6 +104,6 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ user }) => {
       </div>
     </Navbar>
   );
-};
+});
 
 export default DesktopNavbar;

@@ -1,4 +1,4 @@
-const BASE_URL = 'https://localhost:7177';
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
