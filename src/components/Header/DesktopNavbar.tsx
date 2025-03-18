@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, Button, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -8,8 +9,57 @@ interface DesktopNavbarProps {
   user: { loggedIn: boolean; avatar: string };
 }
 
+interface Subcategory {
+  id: string;
+  name: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  subcategories: Subcategory[];
+}
+
 const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ user }) => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]); // קטגוריות שיתקבלו מה-API
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const mockCategories: Category[] = [
+      {
+        id: "1",
+        name: "קטגוריה 1",
+        subcategories: [
+          { id: "1-1", name: "תת קטגוריה 1" },
+          { id: "1-2", name: "תת קטגוריה 2" },
+        ],
+      },
+      {
+        id: "2",
+        name: "קטגוריה 2",
+        subcategories: [
+          { id: "2-1", name: "תת קטגוריה 3" },
+          { id: "2-2", name: "תת קטגוריה 4" },
+        ],
+      },
+      {
+        id: "3",
+        name: "קטגוריה 3",
+        subcategories: [
+          { id: "3-1", name: "תת קטגוריה 5" },
+          { id: "3-2", name: "תת קטגוריה 6" },
+        ],
+      },
+    ];
+
+    setCategories(mockCategories);
+    // קריאה ל-API להורדת הקטגוריות באמצעות fetch
+    /* fetch("/api/categories") // כאן תשנה את ה-URL לפי הצורך
+      .then((response) => response.json()) // המרת התגובה ל-json
+      .then((data) => setCategories(data)) // עדכון הקטגוריות
+      .catch((error) => console.error("Error fetching categories", error)); */
+  }, []);
 
   const handleMouseEnter = (id: string) => {
     setOpenDropdown(id);
@@ -21,6 +71,11 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ user }) => {
 
   const handleClick = (id: string) => {
     setOpenDropdown((prev) => (prev === id ? null : id));
+  };
+
+  const handlePublishAd = () => {
+    // ניווט לדף פרסום מודעה
+    navigate("/publish-ad");
   };
 
   return (
@@ -49,42 +104,36 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ user }) => {
               <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
             </div>
           )}
-          <Button variant="success">פרסום מודעה</Button>
+          <Button variant="success" onClick={handlePublishAd}>
+            פרסום מודעה
+          </Button>
         </div>
 
         {/* קטגוריות במרכז */}
         <Nav className="mx-auto category-nav">
-          <div
-            onMouseEnter={() => handleMouseEnter("nav-dropdown-1")}
-            onMouseLeave={handleMouseLeave}
-          >
-            <NavDropdown
-              title="קטגוריה 1"
-              id="nav-dropdown-1"
-              className="custom-dropdown"
-              show={openDropdown === "nav-dropdown-1"}
-              onClick={() => handleClick("nav-dropdown-1")}
+          {categories.map((category) => (
+            <div
+              key={category.id}
+              onMouseEnter={() =>
+                handleMouseEnter(`nav-dropdown-${category.id}`)
+              }
+              onMouseLeave={handleMouseLeave}
             >
-              <NavDropdown.Item href="#">תת 1</NavDropdown.Item>
-              <NavDropdown.Item href="#">תת 2</NavDropdown.Item>
-            </NavDropdown>
-          </div>
-          <div className="separator"></div> {/* מפריד בין הקטגוריות */}
-          <div
-            onMouseEnter={() => handleMouseEnter("nav-dropdown-2")}
-            onMouseLeave={handleMouseLeave}
-          >
-            <NavDropdown
-              title="קטגוריה 2"
-              id="nav-dropdown-2"
-              className="custom-dropdown"
-              show={openDropdown === "nav-dropdown-2"}
-              onClick={() => handleClick("nav-dropdown-2")}
-            >
-              <NavDropdown.Item href="#">תת 3</NavDropdown.Item>
-              <NavDropdown.Item href="#">תת 4</NavDropdown.Item>
-            </NavDropdown>
-          </div>
+              <NavDropdown
+                title={category.name}
+                id={`nav-dropdown-${category.id}`}
+                className="custom-dropdown mx-2"
+                show={openDropdown === `nav-dropdown-${category.id}`}
+                onClick={() => handleClick(`nav-dropdown-${category.id}`)}
+              >
+                {category.subcategories.map((subcategory) => (
+                  <NavDropdown.Item key={subcategory.id} href="#">
+                    {subcategory.name}
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
+            </div>
+          ))}
         </Nav>
 
         {/* לוגו בצד ימין */}

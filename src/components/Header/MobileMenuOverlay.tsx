@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +13,17 @@ interface MobileMenuOverlayProps {
   handleCategoryClick: (category: string) => void;
 }
 
+interface Subcategory {
+  id: string;
+  name: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  subcategories: Subcategory[];
+}
+
 const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = ({
   isMobileMenuOpen,
   toggleMobileMenu,
@@ -19,6 +31,41 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = ({
   openCategory,
   handleCategoryClick,
 }) => {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    // נתוני דמה עבור קטגוריות
+    const mockCategories: Category[] = [
+      {
+        id: "1",
+        name: "קטגוריה 1",
+        subcategories: [
+          { id: "1-1", name: "תת קטגוריה 1" },
+          { id: "1-2", name: "תת קטגוריה 2" },
+        ],
+      },
+      {
+        id: "2",
+        name: "קטגוריה 2",
+        subcategories: [
+          { id: "2-1", name: "תת קטגוריה 3" },
+          { id: "2-2", name: "תת קטגוריה 4" },
+        ],
+      },
+      {
+        id: "3",
+        name: "קטגוריה 3",
+        subcategories: [
+          { id: "3-1", name: "תת קטגוריה 5" },
+          { id: "3-2", name: "תת קטגוריה 6" },
+        ],
+      },
+    ];
+
+    // מילו את הקטגוריות
+    setCategories(mockCategories);
+  }, []);
+
   return (
     <div className={`mobile-menu-overlay ${isMobileMenuOpen ? "open" : ""}`}>
       <div className="mobile-menu-content">
@@ -56,24 +103,27 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = ({
 
         {/* קטגוריות */}
         <Nav className="flex-column text-center" style={{ marginTop: "40px" }}>
-          {["קטגוריה 1", "קטגוריה 2"].map((category, index) => (
-            <div key={index} className="category-item">
+          {categories.map((category) => (
+            <div key={category.id} className="category-item">
               <div
                 className="category-content"
-                onClick={() => handleCategoryClick(category)}
+                onClick={() => handleCategoryClick(category.name)}
               >
                 {/* שם הקטגוריה */}
-                <div className="category-title">{category}</div>
+                <div className="category-title">{category.name}</div>
                 {/* אייקון */}
                 <FontAwesomeIcon icon={faHome} className="category-icon" />
               </div>
               <div
                 className={`me-3 submenu text-end ${
-                  openCategory === category ? "open" : ""
+                  openCategory === category.name ? "open" : ""
                 }`}
               >
-                <Nav.Link href="#">תת {index * 2 + 1}</Nav.Link>
-                <Nav.Link href="#">תת {index * 2 + 2}</Nav.Link>
+                {category.subcategories.map((subcategory) => (
+                  <Nav.Link key={subcategory.id} href="#">
+                    {subcategory.name}
+                  </Nav.Link>
+                ))}
               </div>
             </div>
           ))}
