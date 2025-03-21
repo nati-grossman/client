@@ -8,6 +8,7 @@ import { Category } from "types/Categories/Category";
 import { CategoriesService } from "services/categoriesService";
 import { categoriesStore } from "stores/Categories.store";
 import { observer } from "mobx-react-lite";
+import { City } from "types/Cities/City";
 
 interface DesktopNavbarProps {
   user: { loggedIn: boolean; avatar: string };
@@ -59,7 +60,7 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
 
         {/* קטגוריות במרכז */}
         <Nav className="mx-auto category-nav">
-          {categoriesStore.categories?.map((category) => (
+          {categoriesStore.categories?.map((category : Category) => (
             <div
               key={category.categoryNumber}
               onMouseEnter={() =>
@@ -78,7 +79,11 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
                   handleClick(`nav-dropdown-${category.categoryNumber}`)
                 }
               >
-                <></>
+                {(category?.cities ?? []).map((city: City) => (
+                  <NavDropdown.Item key={city.cityId} href="#">
+                    {city.cityName}
+                  </NavDropdown.Item>
+                ))}
               </NavDropdown>
             </div>
           ))}
