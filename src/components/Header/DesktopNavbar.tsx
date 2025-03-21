@@ -21,7 +21,7 @@ interface DesktopNavbarProps {
 
 const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [categories, setCategories] = useState<Category[]| null>([]); // קטגוריות שיתקבלו מה-API
+  const [categories, setCategories] = useState<Category[] | null>([]); // קטגוריות שיתקבלו מה-API
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,27 +54,8 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
       className="shadow-sm d-none d-lg-flex header-navbar"
     >
       <div className="container-fluid px-4">
-        {/* תמונת משתמש וכפתור פרופיל */}
-        <div className="align-items-center d-flex m-0 me-1">
-          {user.loggedIn ? (
-            <div className="me-2 user-avatar">
-              <Image
-                src={user.avatar}
-                roundedCircle
-                width={30}
-                height={30}
-                className="me-2"
-              />
-            </div>
-          ) : (
-            <div className="me-2 user-avatar">
-              <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
-            </div>
-          )}
-          <Button variant="success" onClick={handlePublishAd}>
-            פרסום מודעה
-          </Button>
-        </div>
+        {/* לוגו בצד ימין */}
+        <Navbar.Brand href="#">לוגו</Navbar.Brand>
 
         {/* קטגוריות במרכז */}
         <Nav className="mx-auto category-nav">
@@ -90,8 +71,12 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
                 title={category.categoryName}
                 id={`nav-dropdown-${category.categoryNumber}`}
                 className="custom-dropdown mx-2"
-                show={openDropdown === `nav-dropdown-${category.categoryNumber}`}
-                onClick={() => handleClick(`nav-dropdown-${category.categoryNumber}`)}
+                show={
+                  openDropdown === `nav-dropdown-${category.categoryNumber}`
+                }
+                onClick={() =>
+                  handleClick(`nav-dropdown-${category.categoryNumber}`)
+                }
               >
                 <></>
               </NavDropdown>
@@ -99,8 +84,33 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
           ))}
         </Nav>
 
-        {/* לוגו בצד ימין */}
-        <Navbar.Brand href="#">לוגו</Navbar.Brand>
+        {/* תמונת משתמש וכפתור פרופיל */}
+        <div className="align-items-center d-flex m-0 me-1">
+          <div className="d-flex align-items-center">
+            <Button
+              variant="outline-primary"
+              className="btn-success p-2"
+              onClick={handlePublishAd}
+            >
+              + פרסום מודעה
+            </Button>
+          </div>
+          {user.loggedIn ? (
+            <div className="me-2 user-avatar">
+              <Image
+                src={user.avatar}
+                roundedCircle
+                width={30}
+                height={30}
+                className="me-2"
+              />
+            </div>
+          ) : (
+            <div className="me-2 user-avatar">
+              <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
+            </div>
+          )}
+        </div>
       </div>
     </Navbar>
   );

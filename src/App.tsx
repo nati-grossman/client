@@ -11,16 +11,18 @@ const App: React.FC = () => {
   //<Navigation />
   return (
     <>
-      <LanguageSwitcher />
-      <BrowserRouter>
-        <div className="main-content">
-          <Header />
-          <div className="container mt-4 nav-footer-spacing">
-            <RoutesComponent />
+      <div style={{ direction: "rtl" }}>
+        <LanguageSwitcher />
+        <BrowserRouter>
+          <div className="main-content">
+            <Header />
+            <div className="container mt-4 nav-footer-spacing">
+              <RoutesComponent />
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </div>
     </>
   );
 };

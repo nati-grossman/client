@@ -1,4 +1,6 @@
 import { Navbar, Container, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom"; // ייבוא ה-hook של הניווט
 
 interface MobileNavbarProps {
@@ -12,8 +14,9 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
 }) => {
   const navigate = useNavigate(); // יצירת פונקציה לניווט
 
-  const handleProfileClick = () => {
-    navigate("/personal-area"); // ניווט לדף האזור האישי
+  const handlePublishAd = () => {
+    // ניווט לדף פרסום מודעה
+    navigate("/publish-ad");
   };
 
   return (
@@ -25,27 +28,46 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
       className="d-flex d-lg-none header-navbar"
     >
       <Container>
-        {/* כפתור פרופיל בצד שמאל */}
-        <div className="d-flex align-items-center">
-          <Button
-            variant="outline-primary"
-            className="btn-success p-2"
-            onClick={handleProfileClick} // קריאה לפונקציה בעת לחיצה
-          >
-            האזור האישי
-          </Button>
-        </div>
+        {/* כפתור תפריט (3 פסים) בצד ימין */}
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={toggleMobileMenu}
+        />
 
         {/* לוגו במרכז */}
         <Navbar.Brand href="#" className="mx-auto">
           לוגו
         </Navbar.Brand>
 
-        {/* כפתור תפריט (3 פסים) בצד ימין */}
-        <Navbar.Toggle
-          aria-controls="basic-navbar-nav"
-          onClick={toggleMobileMenu}
-        />
+        {/* כפתור פרסום בצד שמאל */}
+        <div className="d-flex align-items-center">
+          <Button
+            variant="outline-primary"
+            className="btn-success p-2"
+            onClick={handlePublishAd}
+          >
+            + פרסום מודעה
+          </Button>
+        </div>
+
+        {/* תמונת משתמש */}
+        <div className="d-flex justify-content-center">
+          {user.loggedIn ? (
+            <div className="me-2 user-avatar">
+              <img
+                src={user.avatar}
+                alt="User Avatar"
+                className="rounded-circle"
+                width={50}
+                height={50}
+              />
+            </div>
+          ) : (
+            <div className="me-2 user-avatar">
+              <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
+            </div>
+          )}
+        </div>
       </Container>
     </Navbar>
   );

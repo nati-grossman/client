@@ -20,7 +20,6 @@ class CategoriesStore {
   async fetchCategories() {
     const categoriesService = new CategoriesService();
     const response = await categoriesService.getCategories();
-
     if (response) {
       this.setCategories(response);
     } else {

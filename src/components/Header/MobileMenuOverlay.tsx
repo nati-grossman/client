@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { useEffect } from "react";
+import { Navbar, Nav, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,7 @@ import "./MobileMenuOverlay.css";
 import { Category } from "types/Categories/Category";
 import { categoriesStore } from "stores/Categories.store";
 import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom"; // ייבוא ה-hook של הניווט
 
 interface MobileMenuOverlayProps {
   isMobileMenuOpen: boolean;
@@ -30,13 +31,34 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
     openCategory,
     handleCategoryClick,
   }) => {
+    const navigate = useNavigate(); // יצירת פונקציה לניווט
+
     useEffect(() => {
       categoriesStore.fetchCategories();
     }, []);
 
+    const handlePublishAd = () => {
+      // ניווט לדף פרסום מודעה
+      navigate("/publish-ad");
+    };
+
+    const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
+      if (
+        (event.target as HTMLElement).classList.contains("mobile-menu-overlay")
+      ) {
+        toggleMobileMenu();
+      }
+    };
+
     return (
-      <div className={`mobile-menu-overlay ${isMobileMenuOpen ? "open" : ""}`}>
-        <div className="mobile-menu-content">
+      <div
+        className={`mobile-menu-overlay ${isMobileMenuOpen ? "open" : ""}`}
+        onClick={handleOverlayClick}
+      >
+        <div
+          className="mobile-menu-content"
+          onClick={(e) => e.stopPropagation()}
+        >
           {/* אייקון סגירה (X) */}
           <span className="close-icon" onClick={toggleMobileMenu}>
             ✖
@@ -69,10 +91,21 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
             )}
           </div>
 
+          {/* כםתור לעלות מודעה */}
+          <div className="align-items-center my-3">
+            <Button
+              variant="outline-primary"
+              className="btn-success p-2"
+              onClick={handlePublishAd}
+            >
+              + פרסום מודעה
+            </Button>
+          </div>
+
           {/* קטגוריות */}
           <Nav
-            className="flex-column text-center"
-            style={{ marginTop: "40px" }}
+            className="flex-column text-center rtl"
+            style={{ marginTop: "40px", direction: "ltr" }}
           >
             {categoriesStore.categories.map((category: Category) => (
               <div key={category.categoryNumber} className="category-item">
@@ -90,7 +123,20 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
                     openCategory === category.categoryName ? "open" : ""
                   }`}
                 >
-                  <></>
+                  {/*
+            {category.subcategories.map((subcategory) => (
+                   <NavDropdown.Item key={subcategory.id} href="#">
+                     {subcategory.name}
+                   </NavDropdown.Item>
+                 ))}
+
+
+                 {category.subcategories.map((subcategory) => (
+                   <NavDropdown.Item key={subcategory.id} href="#">
+                     {subcategory.name}
+                   </NavDropdown.Item>
+                 ))}
+            */}
                 </div>
               </div>
             ))}
