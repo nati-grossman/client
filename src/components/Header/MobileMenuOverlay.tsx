@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import { Navbar, Nav, Button, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,7 @@ import { Category } from "types/Categories/Category";
 import { categoriesStore } from "stores/Categories.store";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom"; // ייבוא ה-hook של הניווט
+import { City } from "types/Cities/City";
 
 interface MobileMenuOverlayProps {
   isMobileMenuOpen: boolean;
@@ -123,20 +124,11 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
                     openCategory === category.categoryName ? "open" : ""
                   }`}
                 >
-                  {/*
-            {category.subcategories.map((subcategory) => (
-                   <NavDropdown.Item key={subcategory.id} href="#">
-                     {subcategory.name}
-                   </NavDropdown.Item>
-                 ))}
-
-
-                 {category.subcategories.map((subcategory) => (
-                   <NavDropdown.Item key={subcategory.id} href="#">
-                     {subcategory.name}
-                   </NavDropdown.Item>
-                 ))}
-            */}
+                  {(category?.cities ?? []).map((city: City) => (
+                    <NavDropdown.Item key={city.cityId} href="#">
+                      {city.cityName}
+                    </NavDropdown.Item>
+                  ))}
                 </div>
               </div>
             ))}
