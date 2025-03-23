@@ -60,7 +60,7 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
 
         {/* קטגוריות במרכז */}
         <Nav className="mx-auto category-nav">
-          {categoriesStore.categories?.map((category : Category) => (
+          {categoriesStore.categories?.map((category: Category) => (
             <div
               key={category.categoryNumber}
               onMouseEnter={() =>

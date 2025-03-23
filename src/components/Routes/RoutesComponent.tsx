@@ -1,14 +1,12 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import HomePage from '../HomePage/HomePage'; 
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-
-import ApartmentsForRent from '../Rent/ApartmentsForRent';
-import ApartmentsForSale from '../Sale/ApartmentsForSale';
-import ShabbatHouses from '../Shabbat/ShabbatHouses';
-
-
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "../HomePage/HomePage";
+import LoginPage from "../LoginPage/LoginPage";
+import RegisterPage from "../RegisterPage/RegisterPage";
+import FieldsShowcase from "../Fields/FieldsShowcase";
+import ApartmentsForRent from "../Rent/ApartmentsForRent";
+import ApartmentsForSale from "../Sale/ApartmentsForSale";
+import ShabbatHouses from "../Shabbat/ShabbatHouses";
 
 const RoutesComponent: React.FC = () => {
   return (
@@ -17,7 +15,7 @@ const RoutesComponent: React.FC = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/homePage" element={<HomePage />} />
-
+      <Route path="/fields-showcase" element={<FieldsShowcase />} />
       <Route path="/rent/:location" element={<ApartmentsForRent />} />
       <Route path="/sales/:location" element={<ApartmentsForSale />} />
       <Route path="/shabbat/:location" element={<ShabbatHouses />} />

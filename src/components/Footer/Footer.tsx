@@ -1,20 +1,34 @@
-import React from 'react';
-import { Container, Row, Col, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Container, Row, Col, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="text-white text-center p-4 mt-4" style={{backgroundColor: 'rgb(96, 197, 140)'}}>
+    <footer
+      className="text-white text-center p-4 mt-4"
+      style={{ backgroundColor: "rgb(96, 197, 140)" }}
+    >
       <Container>
         <Row>
           {/* קישורים לדפים במערכת */}
           <Col md={4} className="mb-3">
             <h5>Quick Links</h5>
             <Nav className="flex-column">
-              <Nav.Link as={Link} to="/" className="text-white">Home</Nav.Link>
-              <Nav.Link as={Link} to="/login" className="text-white">התחבר</Nav.Link>
-              <Nav.Link as={Link} to="/register" className="text-white">הירשם</Nav.Link>
-              <Nav.Link as={Link} to="/about" className="text-white">אודות</Nav.Link>
+              <Nav.Link as={Link} to="/" className="text-white">
+                Home
+              </Nav.Link>
+              <Nav.Link as={Link} to="/login" className="text-white">
+                התחבר
+              </Nav.Link>
+              <Nav.Link as={Link} to="/register" className="text-white">
+                הירשם
+              </Nav.Link>
+              <Nav.Link as={Link} to="/about" className="text-white">
+                אודות
+              </Nav.Link>
+              <Nav.Link as={Link} to="/fields-showcase" className="text-white">
+                Fields Showcase (Dev)
+              </Nav.Link>
             </Nav>
           </Col>
 
@@ -29,9 +43,15 @@ const Footer: React.FC = () => {
           <Col md={4} className="mb-3">
             <h5>Follow Us</h5>
             <Nav className="justify-content-center">
-              <Nav.Link href="#" className="text-white">Facebook</Nav.Link>
-              <Nav.Link href="#" className="text-white">Twitter</Nav.Link>
-              <Nav.Link href="#" className="text-white">Instagram</Nav.Link>
+              <Nav.Link href="#" className="text-white">
+                Facebook
+              </Nav.Link>
+              <Nav.Link href="#" className="text-white">
+                Twitter
+              </Nav.Link>
+              <Nav.Link href="#" className="text-white">
+                Instagram
+              </Nav.Link>
             </Nav>
           </Col>
         </Row>
