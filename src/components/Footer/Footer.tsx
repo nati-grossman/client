@@ -29,6 +29,9 @@ const Footer: React.FC = () => {
               <Nav.Link as={Link} to="/fields-showcase" className="text-white">
                 Fields Showcase (Dev)
               </Nav.Link>
+              <Nav.Link as={Link} to="/steps-demo" className="text-white">
+                Steps Demo (Dev)
+              </Nav.Link>
             </Nav>
           </Col>
 

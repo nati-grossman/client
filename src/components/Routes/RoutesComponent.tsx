@@ -4,6 +4,7 @@ import HomePage from "../HomePage/HomePage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import FieldsShowcase from "../Fields/FieldsShowcase";
+import StepsDemo from "../Steps/StepsDemo";
 import ApartmentsForRent from "../Rent/ApartmentsForRent";
 import ApartmentsForSale from "../Sale/ApartmentsForSale";
 import ShabbatHouses from "../Shabbat/ShabbatHouses";
@@ -16,6 +17,7 @@ const RoutesComponent: React.FC = () => {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/homePage" element={<HomePage />} />
       <Route path="/fields-showcase" element={<FieldsShowcase />} />
+      <Route path="/steps-demo" element={<StepsDemo />} />
       <Route path="/rent/:location" element={<ApartmentsForRent />} />
       <Route path="/sales/:location" element={<ApartmentsForSale />} />
       <Route path="/shabbat/:location" element={<ShabbatHouses />} />
