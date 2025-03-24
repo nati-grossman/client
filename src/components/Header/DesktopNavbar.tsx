@@ -43,7 +43,7 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
 
   const handlePublishAd = () => {
     // ניווט לדף פרסום מודעה
-    navigate("/publish-ad");
+    navigate("/post-ad");
   };
 
   return (

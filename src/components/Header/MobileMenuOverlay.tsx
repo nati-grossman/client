@@ -40,7 +40,7 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
 
     const handlePublishAd = () => {
       // ניווט לדף פרסום מודעה
-      navigate("/publish-ad");
+      navigate("/post-ad");
     };
 
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
