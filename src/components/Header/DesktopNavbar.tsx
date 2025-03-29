@@ -22,11 +22,11 @@ interface DesktopNavbarProps {
 
 const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [categories, setCategories] = useState<Category[] | null>([]); // קטגוריות שיתקבלו מה-API
   const navigate = useNavigate();
 
   useEffect(() => {
     categoriesStore.fetchCategories();
+    categoriesStore.fetchCategoryLevels(13);
   }, []);
 
   const handleMouseEnter = (id: string) => {

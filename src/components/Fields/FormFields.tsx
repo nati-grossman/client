@@ -128,7 +128,7 @@ export const SelectField: React.FC<
         style={!error ? fieldStyles : undefined}
       >
         <option value="">{t("select.placeholder")}</option>
-        {options.map((option) => (
+        {options?.map((option) => (
           <option key={option.value} value={option.value}>
             {t(option.label)}
           </option>
@@ -189,7 +189,7 @@ export const RadioGroupField: React.FC<
         {t(label)}
         {required && <span className="text-danger">*</span>}
       </Form.Label>
-      {options.map((option) => (
+      {options?.map((option) => (
         <Form.Check
           key={option.value}
           type="radio"

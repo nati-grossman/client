@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import { StepIndicator } from "./StepIndicator";
-import {
-  TextField,
-  SelectField,
-  CheckboxField,
-  TextareaField,
-} from "../Fields/FormFields";
+import SystemField from "components/SystemFields/SystemField";
+import { observer } from "mobx-react-lite";
+import { categoriesStore } from "stores/Categories.store";
+import { propertyStore } from "stores/Property.store";
+import { set } from "mobx";
+import { AddPropertyModel } from "types/Property/AddPropertyModel";
+import { PropertyService } from "services/propertyService";
 
-const StepsDemo: React.FC = () => {
+const StepsDemo: React.FC = observer(() => {
   const [currentStep, setCurrentStep] = useState(0);
+
+  useEffect(() => {
+    console.log(categoriesStore.levels)
+  },[categoriesStore.levels])
   const [formData, setFormData] = useState({
     title: "",
     category: "",
@@ -21,130 +26,48 @@ const StepsDemo: React.FC = () => {
     amenities: "",
   });
 
-  const stepTitles = ["פרטים בסיסיים", "מאפייני הנכס", "פרטים נוספים"];
-
   const handleChange = (field: string) => (value: any) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+    if (propertyStore.propertyToAdd) {
+      set(propertyStore.propertyToAdd, field, value);
+    }
   };
-
   const handleNext = () => {
-    if (currentStep < 2) {
+    if (currentStep < categoriesStore.levels.length) {
       setCurrentStep((prev) => prev + 1);
     }
   };
-
   const handleBack = () => {
     if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
     }
   };
-
-  const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-    // Handle form submission
+  const handleSubmit = async () => {
+    console.log(propertyStore.propertyToAdd);
+    const propertyService = new PropertyService();
+    await propertyService.addProperty(propertyStore.propertyToAdd)
   };
 
-  const categoryOptions = [
-    { value: "apartment", label: "דירה" },
-    { value: "house", label: "בית פרטי" },
-    { value: "studio", label: "סטודיו" },
-  ];
-
-  const locationOptions = [
-    { value: "tel-aviv", label: "תל אביב" },
-    { value: "jerusalem", label: "ירושלים" },
-    { value: "haifa", label: "חיפה" },
-  ];
-
   const renderStepContent = () => {
-    switch (currentStep) {
-      case 0:
-        return (
-          <>
-            <TextField
-              label="כותרת הנכס"
-              name="title"
-              value={formData.title}
-              onChange={handleChange("title")}
-              placeholder="הכנס כותרת לנכס"
-              required
-            />
-            <SelectField
-              label="סוג הנכס"
-              name="category"
-              value={formData.category}
-              onChange={handleChange("category")}
-              options={categoryOptions}
-              required
-            />
-          </>
-        );
-      case 1:
-        return (
-          <>
-            <SelectField
-              label="מיקום"
-              name="location"
-              value={formData.location}
-              onChange={handleChange("location")}
-              options={locationOptions}
-              required
-            />
-            <CheckboxField
-              label="משופץ"
-              name="isRenovated"
-              value={formData.isRenovated}
-              onChange={handleChange("isRenovated")}
-            />
-            <CheckboxField
-              label="חניה"
-              name="hasParking"
-              value={formData.hasParking}
-              onChange={handleChange("hasParking")}
-            />
-            <CheckboxField
-              label="מחסן"
-              name="hasStorage"
-              value={formData.hasStorage}
-              onChange={handleChange("hasStorage")}
-            />
-          </>
-        );
-      case 2:
-        return (
-          <>
-            <TextareaField
-              label="תיאור הנכס"
-              name="description"
-              value={formData.description}
-              onChange={handleChange("description")}
-              placeholder="הכנס תיאור מפורט של הנכס"
-              required
-            />
-            <TextareaField
-              label="תוספות ומתקנים"
-              name="amenities"
-              value={formData.amenities}
-              onChange={handleChange("amenities")}
-              placeholder="פרט תוספות ומתקנים נוספים"
-            />
-          </>
-        );
-      default:
-        return null;
-    }
+    return categoriesStore?.levels[currentStep]?.fields.map((field, index) => (
+      <SystemField 
+      key={index} 
+      fieldType={field.fieldType} 
+      label={field.label}
+      name={field.name} 
+      value={propertyStore.propertyToAdd[field.name as keyof AddPropertyModel] || ''} // Ensure valid field access
+      onChange={handleChange(field.name)} // Use the correct handler
+      options={field.options}
+    />
+    ))
   };
 
   return (
     <Container className="py-5" style={{ direction: "rtl" }}>
       <h1 className="text-center mb-4">פרסום מודעה חדשה</h1>
       <StepIndicator
-        totalSteps={3}
+        totalSteps={categoriesStore.levels.length}
         currentStep={currentStep}
-        stepTitles={stepTitles}
+        stepTitles={categoriesStore.levels.map(step => step.levelTitle)}
       />
       <Card className="mt-4">
         <Card.Body>
@@ -158,7 +81,7 @@ const StepsDemo: React.FC = () => {
               >
                 חזור
               </Button>
-              {currentStep === 2 ? (
+              {currentStep === categoriesStore.levels.length - 1 ? (
                 <Button variant="success" onClick={handleSubmit}>
                   שלח
                 </Button>
@@ -173,6 +96,6 @@ const StepsDemo: React.FC = () => {
       </Card>
     </Container>
   );
-};
+});
 
 export default StepsDemo;
