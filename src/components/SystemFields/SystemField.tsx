@@ -23,7 +23,7 @@ const SystemField: React.FC<SystemFieldProps> = ({ fieldType, label, name, onCha
                 );
             case FieldType.TextField:
                 return (
-                    <TextField label={label} name={name} onChange={onChange} value={value} />
+                    <TextField label={label} name={name} onChange={onChange} value={value} placeholder={placeholder} />
                 );
             case FieldType.SelectField:
                 return (
@@ -31,7 +31,7 @@ const SystemField: React.FC<SystemFieldProps> = ({ fieldType, label, name, onCha
                 );
             case FieldType.TextareaField:
                 return (
-                    <TextareaField label={label} name={name} onChange={onChange} value={value} />
+                    <TextareaField label={label} name={name} onChange={onChange} value={value} placeholder={placeholder}/>
                 );
             default:
                 return null;

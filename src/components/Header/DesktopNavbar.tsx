@@ -19,14 +19,16 @@ interface DesktopNavbarProps {
 //   name: string;
 //   subcategories: Subcategory[];
 // }
-
+// need to create new componennt, that displayed list of catgories (categoriesStore.categories), 
+// and on click on one of the category, will triggerd the categoriesStore.fetchCategoryLevels func, 
+// with the category number
 const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     categoriesStore.fetchCategories();
-    categoriesStore.fetchCategoryLevels(13);
+    categoriesStore.fetchCategoryLevels(1);
   }, []);
 
   const handleMouseEnter = (id: string) => {
