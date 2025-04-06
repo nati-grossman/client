@@ -1,11 +1,12 @@
 import {
+  AutocompleteField,
   CheckboxField,
+  ListGroupField,
   SelectField,
   TextareaField,
   TextField,
 } from "components/Fields/FormFields";
 import React from "react";
-import { Form, FormControl, FormCheck, FormSelect } from "react-bootstrap";
 import "./SystemField.css";
 import { SelectOption } from "types/Categories/SelectOption";
 import { FieldType } from "types/Fields/FieldType";
@@ -19,6 +20,10 @@ interface SystemFieldProps {
   placeHolder?: string;
   reqired?: boolean;
   options?: SelectOption[];
+  onSearch?: (query: string) => Promise<SelectOption[]>;
+  minChars?: number;
+  debounceMs?: number;
+  onItemClick?: (value: string | number) => void;
 }
 
 const SystemField: React.FC<SystemFieldProps> = ({
@@ -30,6 +35,10 @@ const SystemField: React.FC<SystemFieldProps> = ({
   placeHolder,
   reqired,
   options = [],
+  onSearch,
+  minChars = 3,
+  debounceMs = 300,
+  onItemClick,
 }) => {
   const renderField = () => {
     switch (fieldType) {
@@ -49,9 +58,9 @@ const SystemField: React.FC<SystemFieldProps> = ({
             label={label}
             name={name}
             onChange={onChange}
-            value={value}
-            placeholder={placeHolder}
+            value={value as string}
             required={reqired}
+            placeholder={placeHolder}
           />
         );
       case FieldType.SelectField:
@@ -60,9 +69,9 @@ const SystemField: React.FC<SystemFieldProps> = ({
             label={label}
             name={name}
             onChange={onChange}
-            value={value}
-            options={options}
+            value={value as string}
             required={reqired}
+            options={options}
           />
         );
       case FieldType.TextareaField:
@@ -71,9 +80,47 @@ const SystemField: React.FC<SystemFieldProps> = ({
             label={label}
             name={name}
             onChange={onChange}
-            value={value}
-            placeholder={placeHolder}
+            value={value as string}
             required={reqired}
+            placeholder={placeHolder}
+          />
+        );
+      case FieldType.AutocompleteField:
+        if (!onSearch) {
+          console.error(
+            `AutocompleteField ${name} requires an onSearch function`
+          );
+          return null;
+        }
+        return (
+          <AutocompleteField
+            label={label}
+            name={name}
+            onChange={onChange}
+            value={value as string}
+            required={reqired}
+            placeholder={placeHolder}
+            onSearch={onSearch}
+            minChars={minChars}
+            debounceMs={debounceMs}
+          />
+        );
+      case FieldType.ListGroupField:
+        if (!onItemClick) {
+          console.error(
+            `ListGroupField ${name} requires an onItemClick function`
+          );
+          return null;
+        }
+        return (
+          <ListGroupField
+            label={label}
+            name={name}
+            onChange={onChange}
+            value={value as string}
+            required={reqired}
+            items={options}
+            onItemClick={onItemClick}
           />
         );
       default:
@@ -81,7 +128,7 @@ const SystemField: React.FC<SystemFieldProps> = ({
     }
   };
 
-  return <>{renderField()}</>;
+  return <div className="system-field">{renderField()}</div>;
 };
 
 export default SystemField;

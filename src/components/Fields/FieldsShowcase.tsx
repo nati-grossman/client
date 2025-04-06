@@ -9,7 +9,10 @@ import {
   TextareaField,
   PriceField,
   PhoneField,
+  AutocompleteField,
+  ListGroupField,
 } from "./FormFields";
+import { autocompleteService } from "services/autocompleteService";
 
 const FieldsShowcase: React.FC = () => {
   const [formValues, setFormValues] = useState({
@@ -21,6 +24,10 @@ const FieldsShowcase: React.FC = () => {
     textarea: "",
     price: "",
     phone: "",
+    street: "",
+    neighborhood: "",
+    lastName: "",
+    listGroup: "",
   });
 
   const handleChange = (field: string) => (value: any) => {
@@ -36,6 +43,11 @@ const FieldsShowcase: React.FC = () => {
     { value: "3", label: "Option 3" },
   ];
 
+  const handleListGroupItemClick = (value: string | number) => {
+    console.log("ListGroup item clicked:", value);
+    // You can add additional logic here
+  };
+
   return (
     <Container className="py-5">
       <h1 className="mb-4">Fields Showcase</h1>
@@ -43,7 +55,7 @@ const FieldsShowcase: React.FC = () => {
         <Col md={6} lg={4} className="mb-4">
           <Card>
             <Card.Body>
-              <Card.Title>Text Field</Card.Title>
+              <h5 className="card-title">Text Field</h5>
               <TextField
                 label="Text Input"
                 name="text"
@@ -58,15 +70,13 @@ const FieldsShowcase: React.FC = () => {
         <Col md={6} lg={4} className="mb-4">
           <Card>
             <Card.Body>
-              <Card.Title>Number Field</Card.Title>
+              <h5 className="card-title">Number Field</h5>
               <NumberField
                 label="Number Input"
                 name="number"
                 value={formValues.number}
                 onChange={handleChange("number")}
                 placeholder="Enter number"
-                min={0}
-                max={100}
               />
             </Card.Body>
           </Card>
@@ -75,9 +85,9 @@ const FieldsShowcase: React.FC = () => {
         <Col md={6} lg={4} className="mb-4">
           <Card>
             <Card.Body>
-              <Card.Title>Select Field</Card.Title>
+              <h5 className="card-title">Select Field</h5>
               <SelectField
-                label="Select Input"
+                label="Select Option"
                 name="select"
                 value={formValues.select}
                 onChange={handleChange("select")}
@@ -90,9 +100,9 @@ const FieldsShowcase: React.FC = () => {
         <Col md={6} lg={4} className="mb-4">
           <Card>
             <Card.Body>
-              <Card.Title>Checkbox Field</Card.Title>
+              <h5 className="card-title">Checkbox Field</h5>
               <CheckboxField
-                label="Checkbox Input"
+                label="Check me"
                 name="checkbox"
                 value={formValues.checkbox}
                 onChange={handleChange("checkbox")}
@@ -104,9 +114,9 @@ const FieldsShowcase: React.FC = () => {
         <Col md={6} lg={4} className="mb-4">
           <Card>
             <Card.Body>
-              <Card.Title>Radio Group Field</Card.Title>
+              <h5 className="card-title">Radio Group Field</h5>
               <RadioGroupField
-                label="Radio Input"
+                label="Select Option"
                 name="radio"
                 value={formValues.radio}
                 onChange={handleChange("radio")}
@@ -119,9 +129,9 @@ const FieldsShowcase: React.FC = () => {
         <Col md={6} lg={4} className="mb-4">
           <Card>
             <Card.Body>
-              <Card.Title>Textarea Field</Card.Title>
+              <h5 className="card-title">Textarea Field</h5>
               <TextareaField
-                label="Textarea Input"
+                label="Text Area"
                 name="textarea"
                 value={formValues.textarea}
                 onChange={handleChange("textarea")}
@@ -134,9 +144,9 @@ const FieldsShowcase: React.FC = () => {
         <Col md={6} lg={4} className="mb-4">
           <Card>
             <Card.Body>
-              <Card.Title>Price Field</Card.Title>
+              <h5 className="card-title">Price Field</h5>
               <PriceField
-                label="Price Input"
+                label="Price"
                 name="price"
                 value={formValues.price}
                 onChange={handleChange("price")}
@@ -149,13 +159,83 @@ const FieldsShowcase: React.FC = () => {
         <Col md={6} lg={4} className="mb-4">
           <Card>
             <Card.Body>
-              <Card.Title>Phone Field</Card.Title>
+              <h5 className="card-title">Phone Field</h5>
               <PhoneField
-                label="Phone Input"
+                label="Phone Number"
                 name="phone"
                 value={formValues.phone}
                 onChange={handleChange("phone")}
                 placeholder="Enter phone number"
+              />
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col md={6} lg={4} className="mb-4">
+          <Card>
+            <Card.Body>
+              <h5 className="card-title">Street Autocomplete</h5>
+              <AutocompleteField
+                label="Street"
+                name="street"
+                value={formValues.street}
+                onChange={handleChange("street")}
+                placeholder="Enter street name"
+                onSearch={autocompleteService.searchStreets}
+                minChars={3}
+                debounceMs={300}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col md={6} lg={4} className="mb-4">
+          <Card>
+            <Card.Body>
+              <h5 className="card-title">Neighborhood Autocomplete</h5>
+              <AutocompleteField
+                label="Neighborhood"
+                name="neighborhood"
+                value={formValues.neighborhood}
+                onChange={handleChange("neighborhood")}
+                placeholder="Enter neighborhood name"
+                onSearch={autocompleteService.searchNeighborhoods}
+                minChars={3}
+                debounceMs={300}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col md={6} lg={4} className="mb-4">
+          <Card>
+            <Card.Body>
+              <h5 className="card-title">Last Name Autocomplete</h5>
+              <AutocompleteField
+                label="Last Name"
+                name="lastName"
+                value={formValues.lastName}
+                onChange={handleChange("lastName")}
+                placeholder="Enter last name"
+                onSearch={autocompleteService.searchLastNames}
+                minChars={3}
+                debounceMs={300}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col md={6} lg={4} className="mb-4">
+          <Card>
+            <Card.Body>
+              <h5 className="card-title">List Group Field</h5>
+              <ListGroupField
+                label="Select an option"
+                name="listGroup"
+                value={formValues.listGroup}
+                onChange={handleChange("listGroup")}
+                items={selectOptions}
+                onItemClick={handleListGroupItemClick}
               />
             </Card.Body>
           </Card>

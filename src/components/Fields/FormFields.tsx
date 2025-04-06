@@ -1,5 +1,5 @@
-import React from "react";
-import { Form, InputGroup } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Form, InputGroup, ListGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 // Custom styles
@@ -11,6 +11,12 @@ const fieldStyles = {
 // Custom styles for checkbox and radio
 const customControlStyles = {
   borderColor: "rgb(96, 197, 140)",
+};
+
+// Custom styles for list group
+const listGroupStyles = {
+  border: "1px solid rgb(96, 197, 140)",
+  borderRadius: "4px",
 };
 
 interface BaseFieldProps {
@@ -329,6 +335,201 @@ export const PhoneField: React.FC<BaseFieldProps> = ({
           </Form.Control.Feedback>
         )}
       </InputGroup>
+    </Form.Group>
+  );
+};
+
+// Autocomplete Field
+interface AutocompleteFieldProps extends BaseFieldProps {
+  minChars?: number;
+  debounceMs?: number;
+  onSearch: (query: string) => Promise<SelectOption[]>;
+}
+
+export const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
+  label,
+  name,
+  value,
+  onChange,
+  error,
+  placeholder,
+  required,
+  disabled,
+  minChars = 3,
+  debounceMs = 300,
+  onSearch,
+}) => {
+  const { t } = useTranslation();
+  const [suggestions, setSuggestions] = useState<SelectOption[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [inputValue, setInputValue] = useState(value || "");
+  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+
+  // Update input value when external value changes
+  useEffect(() => {
+    setInputValue(value || "");
+  }, [value]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    onChange(newValue);
+
+    // Clear previous timer
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    // Only search if we have enough characters
+    if (newValue.length >= minChars) {
+      setIsLoading(true);
+
+      // Debounce the search
+      debounceTimer.current = setTimeout(async () => {
+        try {
+          const results = await onSearch(newValue);
+          setSuggestions(results);
+          setShowSuggestions(true);
+        } catch (error) {
+          console.error("Error fetching suggestions:", error);
+          setSuggestions([]);
+        } finally {
+          setIsLoading(false);
+        }
+      }, debounceMs);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion: SelectOption) => {
+    setInputValue(suggestion.label);
+    onChange(suggestion.value);
+    setShowSuggestions(false);
+  };
+
+  const handleBlur = () => {
+    // Delay hiding suggestions to allow for click events
+    setTimeout(() => {
+      setShowSuggestions(false);
+    }, 200);
+  };
+
+  return (
+    <Form.Group className="mb-3 position-relative">
+      <Form.Label>
+        {t(label)}
+        {required && <span className="text-danger">*</span>}
+      </Form.Label>
+      <div className="position-relative">
+        <Form.Control
+          type="text"
+          name={name}
+          value={inputValue}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          placeholder={placeholder ? t(placeholder) : ""}
+          isInvalid={!!error}
+          disabled={disabled}
+          style={!error ? fieldStyles : undefined}
+        />
+        {isLoading && (
+          <div
+            className="position-absolute"
+            style={{ right: "10px", top: "50%", transform: "translateY(-50%)" }}
+          >
+            <div
+              className="spinner-border spinner-border-sm text-primary"
+              role="status"
+            >
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        )}
+        {showSuggestions && suggestions.length > 0 && (
+          <div
+            className="position-absolute w-100"
+            style={{
+              zIndex: 1000,
+              maxHeight: "200px",
+              overflowY: "auto",
+              backgroundColor: "white",
+              border: "1px solid #ced4da",
+              borderRadius: "0.25rem",
+              boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+            }}
+          >
+            {suggestions.map((suggestion) => (
+              <div
+                key={suggestion.value}
+                className="p-2 cursor-pointer hover-bg-light"
+                onClick={() => handleSuggestionClick(suggestion)}
+                style={{ cursor: "pointer" }}
+              >
+                {suggestion.label}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      {error && (
+        <Form.Control.Feedback type="invalid">{t(error)}</Form.Control.Feedback>
+      )}
+    </Form.Group>
+  );
+};
+
+// List Group Field
+interface ListGroupFieldProps extends BaseFieldProps {
+  items: { value: string | number; label: string }[];
+  onItemClick: (value: string | number) => void;
+}
+
+export const ListGroupField: React.FC<ListGroupFieldProps> = ({
+  label,
+  name,
+  value,
+  onChange,
+  error,
+  required,
+  disabled,
+  items,
+  onItemClick,
+}) => {
+  const { t } = useTranslation();
+
+  const handleItemClick = (itemValue: string | number) => {
+    onChange(itemValue);
+    onItemClick(itemValue);
+  };
+
+  return (
+    <Form.Group className="mb-3">
+      <Form.Label>
+        {t(label)}
+        {required && <span className="text-danger">*</span>}
+      </Form.Label>
+      <ListGroup style={!error ? listGroupStyles : undefined}>
+        {items.map((item) => (
+          <ListGroup.Item
+            key={item.value}
+            action
+            onClick={() => handleItemClick(item.value)}
+            active={value === item.value}
+            disabled={disabled}
+            className="text-end"
+          >
+            {t(item.label)}
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
+      {error && (
+        <Form.Control.Feedback type="invalid" style={{ display: "block" }}>
+          {t(error)}
+        </Form.Control.Feedback>
+      )}
     </Form.Group>
   );
 };

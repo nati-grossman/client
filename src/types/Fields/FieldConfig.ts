@@ -45,6 +45,19 @@ interface PhoneFieldConfig extends BaseFieldConfig {
   type: "phone";
 }
 
+interface AutocompleteFieldConfig extends BaseFieldConfig {
+  type: "autocomplete";
+  minChars?: number;
+  debounceMs?: number;
+  searchEndpoint: string;
+}
+
+interface ListGroupFieldConfig extends BaseFieldConfig {
+  type: "listgroup";
+  items: SelectOption[];
+  onItemClick: (value: string | number) => void;
+}
+
 export type FieldConfig =
   | TextFieldConfig
   | NumberFieldConfig
@@ -52,4 +65,6 @@ export type FieldConfig =
   | CheckboxFieldConfig
   | TextareaFieldConfig
   | PriceFieldConfig
-  | PhoneFieldConfig;
+  | PhoneFieldConfig
+  | AutocompleteFieldConfig
+  | ListGroupFieldConfig;
