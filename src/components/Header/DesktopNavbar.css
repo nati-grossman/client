@@ -1,0 +1,157 @@
+/* מסיר את המשולש הקטן ליד הקטגוריות */
+.custom-dropdown .dropdown-toggle::after {
+  display: none !important;
+}
+
+/* ריבוע קטן בין הקטגוריות */
+.separator {
+  width: 5px;
+  height: 5px;
+  background-color: #888; /* צבע הריבוע */
+  border-radius: 50%;
+  margin: 0 10px;
+  align-self: center;
+}
+
+/* פתיחת תת-קטגוריה במעבר עכבר */
+.custom-dropdown .dropdown-menu {
+  display: block;
+  margin-top: 0;
+  width: 150px;
+  text-align: right !important;
+}
+
+/* פתיחת תת-קטגוריה במעבר עכבר */
+.custom-dropdown .dropdown-menu {
+  display: block;
+  margin-top: 0;
+  width: 150px;
+  text-align: right !important;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s, opacity 0.2s ease-in-out;
+}
+
+.custom-dropdown.show .dropdown-menu {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* עיצוב ברירת מחדל של הפריטים בתפריט */
+.custom-dropdown .dropdown-menu .dropdown-item {
+  color: #333;
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+/* שינוי צבע רקע וטקסט במעבר עכבר */
+.custom-dropdown .dropdown-menu .dropdown-item:hover {
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+/**/
+/* עיצוב ברירת מחדל */
+.custom-dropdown .dropdown-menu .dropdown-item {
+  color: #333;
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* רקע דינמי עם אפקט מעבר צבע */
+.custom-dropdown .dropdown-menu .dropdown-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgb(96, 197, 140), #2575fc);
+  transition: all 0.4s ease-in-out;
+  z-index: -1;
+}
+
+/* כשהעכבר עובר - הצבע זז מהצד */
+.custom-dropdown .dropdown-menu .dropdown-item:hover::before {
+  left: 0;
+}
+
+/* טקסט מתחלף בהדרגה ללבן */
+.custom-dropdown .dropdown-menu .dropdown-item:hover {
+  color: #fff;
+  transform: scale(1.07);
+  font-weight: bold;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* עיצוב הכפתור הבסיסי */
+.btn-success {
+  position: relative;
+  overflow: hidden;
+  font-size: 16px;
+  padding: 10px 20px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+  background: rgb(96, 197, 140);
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1; /* נוסיף Z-index כדי שהכפתור יישאר מעל כל דבר */
+}
+
+/* רקע דינמי עם מעבר צבע */
+.btn-success::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgb(96, 197, 140), #2575fc);
+  transition: all 0.4s ease-in-out;
+  z-index: -1; /* נוודא שלרקע יש Z-index נמוך יותר מהכפתור */
+}
+
+/* מעבר עכבר - הרקע מחליף צבעים */
+.btn-success:hover::before {
+  left: 0;
+}
+
+/* אפקט לחיצה */
+.btn-success:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/**/
+/* הוספת גבול תחתון עם צל לאזור הניווט */
+.header-navbar {
+  border-bottom: 3px solid rgb(96, 197, 140); /* צבע כחול יפה */
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.1) !important; /* צל רך */
+  padding: 10px 0; /* קצת ריווח */
+}
+
+/* עיגול ממורכז לתמונה או לאיקון */
+.user-avatar {
+  width: 40px; /* קוטר העיגול */
+  height: 40px;
+  border-radius: 50%; /* עיגול */
+  background-color: #f0f0f0; /* צבע רקע */
+  display: flex;
+  justify-content: center; /* ממורכז אופקית */
+  align-items: center; /* ממורכז אנכית */
+  border: 2px solid #96c6c3; /* גבול יפה */
+  overflow: hidden; /* לוודא שהתמונה לא תצא מהעיגול */
+}
+
+.user-avatar svg {
+  width: 20px; /* גודל האיקון */
+  height: 20px;
+  margin: auto;
+}

@@ -1,0 +1,17 @@
+/* CategorySelectionPage.css */
+.category-list {
+  width: 100%;
+}
+
+.category-item {
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+}
+
+/* Desktop styles - only change width */
+@media (min-width: 768px) {
+  .category-list {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}

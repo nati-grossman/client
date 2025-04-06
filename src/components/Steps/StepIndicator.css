@@ -1,0 +1,78 @@
+.step-indicator-container {
+  direction: rtl;
+  margin-bottom: 2rem;
+}
+
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.step-indicator::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #e9ecef;
+  z-index: 1;
+}
+
+.step {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  flex: 1;
+  padding: 0 10px;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-weight: bold;
+}
+
+.step.active .step-number {
+  background-color: #007bff;
+  color: white;
+}
+
+.step.current .step-number {
+  background-color: #28a745;
+  color: white;
+}
+
+.step-title {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+.step.active .step-title {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.step.current .step-title {
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Desktop styles - only change width */
+@media (min-width: 768px) {
+  .step-indicator {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}

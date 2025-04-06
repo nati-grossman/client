@@ -1,0 +1,19 @@
+/* SystemField.css */
+.system-field-group {
+  width: 100%;
+}
+
+.system-field {
+  width: 100%;
+}
+
+/* Desktop styles - make fields narrower */
+@media (min-width: 768px) {
+  .system-field-group {
+    max-width: 100%;
+  }
+
+  .system-field {
+    max-width: 100%;
+  }
+}

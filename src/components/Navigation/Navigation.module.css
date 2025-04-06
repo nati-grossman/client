@@ -1,0 +1,51 @@
+:global(#navbar-dropdown-sale.dropdown-toggle::after) {
+  display: none !important;
+}
+
+:global(#navbar-dropdown-sale.dropdown-toggle:hover) {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+:global(.dropdown-menu) {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+:global(#navbar-dropdown-rent.dropdown-toggle::after) {
+  display: none !important;
+}
+
+:global(#navbar-dropdown-rent.dropdown-toggle:hover) {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+:global(.dropdown-menu) {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+:global(#navbar-dropdown-shabbat.dropdown-toggle::after) {
+  display: none !important;
+}
+
+:global(#navbar-dropdown-shabbat.dropdown-toggle:hover) {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+:global(.dropdown-menu) {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+:global(.nav-item.dropdown) {
+  color: white;
+  background-color: #2c3e50;
+  transition: background-color 0.3s ease;
+  margin-right: 0.25rem !important;
+  margin-left: 0.25rem !important;
+}
+
+:global(.nav-item.dropdown):hover {
+  background-color: #e8c27d;
+  color: white;
+}

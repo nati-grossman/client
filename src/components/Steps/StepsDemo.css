@@ -1,0 +1,25 @@
+/* StepsDemo.css */
+.steps-form-container {
+  width: 100%;
+}
+
+/* Make form fields narrower on desktop */
+@media (min-width: 768px) {
+  .steps-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Target form fields to make them narrower */
+  .steps-form-container form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* Target individual form fields */
+  .steps-form-container .form-group,
+  .steps-form-container .form-control,
+  .steps-form-container .form-check {
+    max-width: 100%;
+  }
+}
