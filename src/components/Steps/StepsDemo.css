@@ -3,6 +3,16 @@
   width: 100%;
 }
 
+/* Card shadow */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
 /* Make form fields narrower on desktop */
 @media (min-width: 768px) {
   .steps-form-container {

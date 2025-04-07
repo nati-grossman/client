@@ -65,16 +65,18 @@ const CategorySelectionPage: React.FC = observer(() => {
   return (
     <Container className="py-5" style={{ direction: "rtl" }}>
       <h1 className="text-center mb-4">בחר קטגוריה למודעה</h1>
-      <Card>
+      <Card className="mt-4 category-form-container">
         <Card.Body>
-          <ListGroupField
-            label=""
-            name="category"
-            value={selectedCategory}
-            onChange={setSelectedCategory}
-            items={categoryOptions}
-            onItemClick={handleCategorySelect}
-          />
+          <form>
+            <ListGroupField
+              label=""
+              name="category"
+              value={selectedCategory}
+              onChange={setSelectedCategory}
+              items={categoryOptions}
+              onItemClick={handleCategorySelect}
+            />
+          </form>
         </Card.Body>
       </Card>
     </Container>
