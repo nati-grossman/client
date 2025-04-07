@@ -9,7 +9,7 @@ import { set } from "mobx";
 import { AddPropertyModel } from "types/Property/AddPropertyModel";
 import { PropertyService } from "services/propertyService";
 import { useNavigate } from "react-router-dom";
-import "./StepsDemo.css";
+import "./AdPostingForm.css";
 
 const AdPostingForm: React.FC = observer(() => {
   const [currentStep, setCurrentStep] = useState(0);

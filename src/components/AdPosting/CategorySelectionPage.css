@@ -43,7 +43,7 @@
   }
 
   /* Target form fields to make them narrower - similar to StepsDemo */
-  .category-form-container form {
+  .width-form {
     max-width: 500px;
     margin: 0 auto;
   }

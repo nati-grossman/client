@@ -67,7 +67,7 @@ const CategorySelectionPage: React.FC = observer(() => {
       <h1 className="text-center mb-4">בחר קטגוריה למודעה</h1>
       <Card className="mt-4 category-form-container">
         <Card.Body>
-          <form>
+          <div className="width-form">
             <ListGroupField
               label=""
               name="category"
@@ -76,7 +76,7 @@ const CategorySelectionPage: React.FC = observer(() => {
               items={categoryOptions}
               onItemClick={handleCategorySelect}
             />
-          </form>
+          </div>
         </Card.Body>
       </Card>
     </Container>
