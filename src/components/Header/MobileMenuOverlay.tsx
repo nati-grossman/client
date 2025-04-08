@@ -28,10 +28,6 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
   }) => {
     const navigate = useNavigate();
 
-    useEffect(() => {
-      categoriesStore.fetchCategories();
-    }, []);
-
     const handleStartAdPosting = () => {
       // Navigate to category selection page
       navigate("/select-category");

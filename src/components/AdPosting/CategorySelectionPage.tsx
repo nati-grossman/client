@@ -8,7 +8,6 @@ import { ListGroupField } from "components/Fields/FormFields";
 import "./CategorySelectionPage.css";
 
 const CategorySelectionPage: React.FC = observer(() => {
-  const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<
     string | number | null
   >(null);
@@ -16,14 +15,19 @@ const CategorySelectionPage: React.FC = observer(() => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadCategories();
+    // If categories are already loaded, we don't need to fetch them again
+    if (categoriesStore.categoriesFetched) {
+      setIsLoading(false);
+    } else {
+      // If categories are not loaded, fetch them
+      loadCategories();
+    }
   }, []);
 
   const loadCategories = async () => {
     setIsLoading(true);
     try {
       await categoriesStore.fetchCategories();
-      setCategories(categoriesStore.categories);
     } catch (error) {
       console.error("Error loading categories:", error);
     }
@@ -57,7 +61,7 @@ const CategorySelectionPage: React.FC = observer(() => {
   }
 
   // Convert categories to the format expected by ListGroupField
-  const categoryOptions = categories.map((category) => ({
+  const categoryOptions = categoriesStore.categories.map((category) => ({
     value: category.categoryNumber,
     label: category.categoryName,
   }));

@@ -22,7 +22,7 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    categoriesStore.fetchCategories();
+    // Only fetch category levels, categories are already fetched by Header
     categoriesStore.fetchCategoryLevels(1);
   }, []);
 
