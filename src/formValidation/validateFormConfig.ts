@@ -7,7 +7,7 @@ type ValidationError = {
 
 export function validateFormConfig(
   formConfig: FormConfig,
-  formValues: Record<string, any>
+  formValues: Record<string, string | number | boolean>
 ): { isValid: boolean; errors: ValidationError[] } {
   const errors: ValidationError[] = [];
 

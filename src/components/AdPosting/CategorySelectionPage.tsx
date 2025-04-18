@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Container, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { categoriesStore } from "stores/Categories.store";
-import { Category } from "types/Categories/Category";
 import { observer } from "mobx-react-lite";
 import { ListGroupField } from "components/Fields/FormFields";
 import "./CategorySelectionPage.css";

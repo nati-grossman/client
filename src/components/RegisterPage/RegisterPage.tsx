@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import DynamicForm from "../Form/DynamicForm";
 import PageTitle from "../PageTitle";
 import { FormConfig } from "../../formValidation/formConfigTypes"; // אם יש לך את הקובץ הזה
 import { useTranslation } from "react-i18next";
@@ -97,7 +96,6 @@ const RegisterPage: React.FC = () => {
         <div className="d-flex justify-content-center">
           <div className="w-25">
             <PageTitle text={t("registerScreen")} className="text-center" />
-            <DynamicForm config={registerFormConfig} />
           </div>
         </div>
       </div>

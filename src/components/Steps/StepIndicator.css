@@ -44,12 +44,12 @@
 }
 
 .step.active .step-number {
-  background-color: #007bff;
+  background: var(--site-primary-lighter);
   color: white;
 }
 
 .step.current .step-number {
-  background: var(--site-primary);
+  background: var(--site-primary-light);
   color: white;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .step.current .step-title {
-  color: var(--site-primary);
+  color: var(--site-primary-light);
   font-weight: bold;
 }
 

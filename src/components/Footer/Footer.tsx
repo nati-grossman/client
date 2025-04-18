@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   return (
     <footer
       className="text-white text-center p-4 mt-4"
-      style={{ backgroundColor: "var(--site-primary)" }}
+      style={{ backgroundColor: "var(--site-primary-light)" }}
     >
       <Container>
         <Row>

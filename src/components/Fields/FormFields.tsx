@@ -4,18 +4,18 @@ import { useTranslation } from "react-i18next";
 
 // Custom styles
 const fieldStyles = {
-  border: "1px solid rgb(96, 197, 140)",
+  border: "1px solid var(--site-primary)",
   borderRadius: "4px",
 };
 
 // Custom styles for checkbox and radio
 const customControlStyles = {
-  borderColor: "rgb(96, 197, 140)",
+  borderColor: "var(--site-primary)",
 };
 
 // Custom styles for list group
 const listGroupStyles = {
-  border: "1px solid rgb(96, 197, 140)",
+  border: "1px solid var(--site-primary)",
   borderRadius: "4px",
 };
 
