@@ -2,6 +2,7 @@ import {
   AutocompleteField,
   CheckboxField,
   ListGroupField,
+  NumberField,
   SelectField,
   TextareaField,
   TextField,
@@ -59,6 +60,17 @@ const SystemField: React.FC<SystemFieldProps> = ({
             name={name}
             onChange={onChange}
             value={value as string}
+            required={reqired}
+            placeholder={placeHolder}
+          />
+        );
+        case FieldType.InputNumber:
+        return (
+          <NumberField
+            label={label}
+            name={name}
+            onChange={onChange}
+            value={value}
             required={reqired}
             placeholder={placeHolder}
           />

@@ -61,7 +61,7 @@ class CategoriesStore {
     const response = await categoriesService.getCategoryLevels(categoryNumber);
 
     if (response) {
-      this.setLevels(response);
+      this.setLevels(response.stepCategoriesModel);
     } else {
       console.error("Failed to fetch categories:");
     }
