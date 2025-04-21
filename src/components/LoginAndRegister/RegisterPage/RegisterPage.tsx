@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import PageTitle from "../PageTitle";
-import { FormConfig } from "../../formValidation/formConfigTypes"; // אם יש לך את הקובץ הזה
+import PageTitle from "../GlobalComponent/PageTitle";
+import { FormConfig } from "../../../formValidation/formConfigTypes"; // אם יש לך את הקובץ הזה
 import { useTranslation } from "react-i18next";
 import { TFunction } from "i18next";
 import { UserService } from "services/userService";
-import { RegisterRequest } from "types/Registration/RegisterRequest";
+import { RegisterRequest } from "types/LoginAndRegister/Registration/RegisterRequest";
 
 const createRegisterFormConfig = (t: TFunction): FormConfig => ({
   fields: [

@@ -11,7 +11,7 @@ import {
   PhoneField,
   AutocompleteField,
   ListGroupField,
-} from "./FormFields";
+} from "../Fields/FormFields";
 import { autocompleteService } from "services/autocompleteService";
 
 const FieldsShowcase: React.FC = () => {

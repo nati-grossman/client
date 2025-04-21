@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, Button } from "react-bootstrap";
-import StepIndicator from "./StepIndicator";
+import StepIndicator from "../PostingProperty/Steps/StepIndicator";
 import SystemField from "components/SystemFields/SystemField";
 import { observer } from "mobx-react-lite";
 import { categoriesStore } from "stores/Categories.store";
@@ -9,7 +9,7 @@ import { set } from "mobx";
 import { AddPropertyModel } from "types/Property/AddPropertyModel";
 import { PropertyService } from "services/propertyService";
 import { useNavigate } from "react-router-dom";
-import "./AdPostingForm.css";
+import "./StepsDemo.css";
 
 const AdPostingForm: React.FC = observer(() => {
   const [currentStep, setCurrentStep] = useState(0);

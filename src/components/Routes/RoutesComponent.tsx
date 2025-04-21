@@ -1,13 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "../HomePage/HomePage";
-import LoginPage from "../LoginPage/LoginPage";
-import RegisterPage from "../RegisterPage/RegisterPage";
-import FieldsShowcase from "../Fields/FieldsShowcase";
-import AdPostingForm from "../Steps/AdPostingForm";
-import ApartmentsForRent from "../Rent/ApartmentsForRent";
-import ApartmentsForSale from "../Sale/ApartmentsForSale";
-import ShabbatHouses from "../Shabbat/ShabbatHouses";
+import LoginPage from "../LoginAndRegister/LoginPage/LoginPage";
+import RegisterPage from "../LoginAndRegister/RegisterPage/RegisterPage";
+import FieldsShowcase from "../TempComponnents/FieldsShowcase";
+import AdPostingForm from "../PostingProperty/Steps/AdPostingForm";
+import ApartmentsForRent from "../Apartments/Rent/ApartmentsForRent";
+import ApartmentsForSale from "../Apartments/Sale/ApartmentsForSale";
+import ShabbatHouses from "../Apartments/Shabbat/ShabbatHouses";
 import CategorySelectionPage from "../AdPosting/CategorySelectionPage";
 
 const RoutesComponent: React.FC = () => {
