@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import StepIndicator from "../PostingProperty/Steps/StepIndicator";
-import SystemField from "components/SystemFields/SystemField";
+import SystemField from "components/Fields/SystemFields/SystemField";
 import { observer } from "mobx-react-lite";
 import { categoriesStore } from "stores/Categories.store";
 import { propertyStore } from "stores/Property.store";
