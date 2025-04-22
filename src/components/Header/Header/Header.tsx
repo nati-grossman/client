@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
-import DesktopNavbar from "./DesktopNavbar";
-import MobileNavbar from "./MobileNavbar";
-import MobileMenuOverlay from "./MobileMenuOverlay";
+import DesktopNavbar from "../DesktopNavbar/DesktopNavbar";
+import MobileNavbar from "../MobileNavbar/MobileNavbar";
+import MobileMenuOverlay from "../MobileMenuOverlay/MobileMenuOverlay";
 import "./Header.css";
 import { categoriesStore } from "stores/Categories.store";
 

@@ -90,10 +90,16 @@ export const NumberField: React.FC<
         {required && <span className="text-danger">*</span>}
       </Form.Label>
       <Form.Control
-        type="number"
+        type="tel"
+        inputMode="numeric"
+        pattern="[0-9]*"
         name={name}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          // שומר רק ספרות
+          const numericValue = e.target.value.replace(/[^0-9]/g, "");
+          onChange(numericValue);
+        }}
         placeholder={placeholder ? t(placeholder) : ""}
         isInvalid={!!error}
         disabled={disabled}

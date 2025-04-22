@@ -1,8 +1,7 @@
 import React from "react";
-import PropertyList from "../Property/PropertyList";
-
-import SectionHeader from "../SectionHeader";
-import PropertyFilters from "../Property/PropertyFilters";
+import PropertyList from "../../Property/PropertyList";
+import SectionHeader from "../GlobalComponent/SectionHeader";
+import PropertyFilters from "../../Property/PropertyFilters";
 
 const ApartmentsForRent: React.FC = () => {
   return (
