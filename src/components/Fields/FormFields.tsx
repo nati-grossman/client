@@ -4,8 +4,13 @@ import { useTranslation } from "react-i18next";
 
 // Custom styles
 const fieldStyles = {
-  border: "1px solid var(--site-primary)",
-  borderRadius: "4px",
+  border: "0px",
+  borderBottom: "3px solid var(--site-primary)",
+  borderRadius: "0px",
+  transition: "all 0.3s ease",
+  backgroundColor: "transparent",
+  outline: "none",
+  boxShadow: "none",
 };
 
 // Custom styles for checkbox and radio
@@ -17,6 +22,11 @@ const customControlStyles = {
 const listGroupStyles = {
   border: "1px solid var(--site-primary)",
   borderRadius: "4px",
+};
+
+// Focus styles
+const focusStyles = {
+  borderBottom: "3px solid var(--site-primary-light)",
 };
 
 interface BaseFieldProps {
@@ -58,6 +68,7 @@ export const TextField: React.FC<BaseFieldProps> = ({
         isInvalid={!!error}
         disabled={disabled}
         style={!error ? fieldStyles : undefined}
+        className="custom-form-control"
       />
       {error && (
         <Form.Control.Feedback type="invalid">{t(error)}</Form.Control.Feedback>

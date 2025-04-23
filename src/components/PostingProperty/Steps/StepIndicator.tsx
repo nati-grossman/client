@@ -23,7 +23,6 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
               index === currentStep ? "current" : ""
             }`}
           >
-            <div className="step-number">{index + 1}</div>
             <div className="step-title">{stepTitles[index]}</div>
           </Col>
         ))}
