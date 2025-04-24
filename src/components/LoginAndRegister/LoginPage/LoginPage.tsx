@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import PageTitle from "../GlobalComponent/PageTitle";
 import { TextField, PasswordField } from "../../Fields/FormFields";
-import { UserService } from "services/userService";
 import { LoginRequest } from "types/LoginAndRegister/Login/LoginRequest";
 import { userStore } from "stores/User.store";
-
+import { UserService } from "services/userService";
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState<LoginRequest>({
     email: "",
@@ -17,11 +16,12 @@ const LoginPage: React.FC = () => {
     const userService = new UserService();
     const response = await userService.login(formData);
     if (response?.success) {
-      // userStore.setUser(response.data);
+      //userStore.setUser(response.data);
       userStore.setToken(response.data);
       alert("התחברות בוצעה בהצלחה");
+    } else {
+      alert("התחברות נכשלה. אנא נסה שוב.");
     }
-    // Handle response here
   };
 
   const handleChange = (field: keyof LoginRequest) => (value: string) => {
