@@ -1,17 +1,26 @@
 {
-    "compilerOptions": {
-      "target": "ES6",                    // היעד שלך - כאן בחרתי ES6
-      "module": "CommonJS",                 // הגדרת המודול ל-ESNext
-      "jsx": "react-jsx",                 // תומך ב-JSX של React
-      "strict": true,                     // הפעלת כללים מחמירים כדי לאכוף קוד נקי
-      "moduleResolution": "node",         // שימוש ב-node.js להחלטת מודולים
-      "baseUrl": "./src",
-      "esModuleInterop": true,            // אפשר שימוש ב-import/require ב-CommonJS ו-ES Modules
-      "skipLibCheck": true,               // להתעלם מבחינת בדיקת טיפוסים בקבצים חיצוניים
-      "forceConsistentCasingInFileNames": true
-    },
-    "include": [
-      "src/**/*"                          // כלל את כל קבצי ה-TypeScript בתיקיית src
-    ]
-  }
-  
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "esnext",
+    "jsx": "preserve",
+    "strict": true,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
