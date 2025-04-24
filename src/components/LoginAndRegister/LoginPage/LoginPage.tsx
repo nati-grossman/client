@@ -4,6 +4,7 @@ import PageTitle from "../GlobalComponent/PageTitle";
 import { TextField, PasswordField } from "../../Fields/FormFields";
 import { UserService } from "services/userService";
 import { LoginRequest } from "types/LoginAndRegister/Login/LoginRequest";
+import { userStore } from "stores/User.store";
 
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState<LoginRequest>({
@@ -15,6 +16,11 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     const userService = new UserService();
     const response = await userService.login(formData);
+    if (response?.success) {
+      // userStore.setUser(response.data);
+      userStore.setToken(response.data);
+      alert("התחברות בוצעה בהצלחה");
+    }
     // Handle response here
   };
 
