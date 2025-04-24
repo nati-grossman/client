@@ -6,7 +6,7 @@ import { RegisterResponse } from "types/LoginAndRegister/Registration/RegisterRe
 
 export class UserService {
   login = async (data: LoginRequest) => {
-    const endpoint = "/api/user/login";
+    const endpoint = "/User/login";
     try {
       const response = await postData<LoginResponse>(endpoint, data);
       return response;
@@ -15,7 +15,7 @@ export class UserService {
     }
   };
   register = async (data: RegisterRequest) => {
-    const endpoint = "/api/user/registration";
+    const endpoint = "/User/registration";
     try {
       const response = await postData<RegisterResponse>(endpoint, data);
       return response;

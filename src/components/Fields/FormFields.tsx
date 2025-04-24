@@ -335,7 +335,6 @@ export const PhoneField: React.FC<BaseFieldProps> = ({
         {required && <span className="text-danger">*</span>}
       </Form.Label>
       <InputGroup>
-        <InputGroup.Text style={fieldStyles}>+972</InputGroup.Text>
         <Form.Control
           type="tel"
           name={name}
