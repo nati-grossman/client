@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Nav } from "react-bootstrap";
+import { Container, Row, Col, Nav, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
@@ -12,16 +12,18 @@ const Footer: React.FC = () => {
         <Row>
           {/* קישורים לדפים במערכת */}
           <Col md={4} className="mb-3">
-            <h5>Quick Links</h5>
+            <h5>ניווט מהיר</h5>
             <Nav className="flex-column">
               <Nav.Link as={Link} to="/" className="text-white">
-                Home
+                דף הבית
               </Nav.Link>
               <Nav.Link as={Link} to="/login" className="text-white">
-                התחבר
+                <Button variant="outline-light" className="w-100 mb-2">
+                  התחברות למערכת
+                </Button>
               </Nav.Link>
               <Nav.Link as={Link} to="/register" className="text-white">
-                הירשם
+                הרשמה
               </Nav.Link>
               <Nav.Link as={Link} to="/about" className="text-white">
                 אודות
@@ -37,14 +39,14 @@ const Footer: React.FC = () => {
 
           {/* פרטי יצירת קשר */}
           <Col md={4} className="mb-3">
-            <h5>Contact Us</h5>
+            <h5>צור קשר</h5>
             <p>info@myapp.com</p>
             <p>+1 (555) 123-4567</p>
           </Col>
 
           {/* מדיה חברתית */}
           <Col md={4} className="mb-3">
-            <h5>Follow Us</h5>
+            <h5>עקבו אחרינו</h5>
             <Nav className="justify-content-center">
               <Nav.Link href="#" className="text-white">
                 Facebook
@@ -60,7 +62,7 @@ const Footer: React.FC = () => {
         </Row>
         <Row className="mt-4">
           <Col>
-            <p>© 2025 My App. All rights reserved.</p>
+            <p>© 2025 HomeFinder. כל הזכויות שמורות.</p>
           </Col>
         </Row>
       </Container>

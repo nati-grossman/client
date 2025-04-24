@@ -8,7 +8,7 @@ const fieldStyles = {
   borderBottom: "3px solid var(--site-primary)",
   borderRadius: "0px",
   transition: "all 0.3s ease",
-  backgroundColor: "transparent",
+  backgroundColor: "#c2b6b640",
   outline: "none",
   boxShadow: "none",
 };
@@ -546,6 +546,43 @@ export const ListGroupField: React.FC<ListGroupFieldProps> = ({
         <Form.Control.Feedback type="invalid" style={{ display: "block" }}>
           {t(error)}
         </Form.Control.Feedback>
+      )}
+    </Form.Group>
+  );
+};
+
+// Password Input Field
+export const PasswordField: React.FC<BaseFieldProps> = ({
+  label,
+  name,
+  value,
+  onChange,
+  error,
+  placeholder,
+  required,
+  disabled,
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <Form.Group className="mb-3">
+      <Form.Label>
+        {t(label)}
+        {required && <span className="text-danger">*</span>}
+      </Form.Label>
+      <Form.Control
+        type="password"
+        name={name}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder ? t(placeholder) : ""}
+        isInvalid={!!error}
+        disabled={disabled}
+        style={!error ? fieldStyles : undefined}
+        className="custom-form-control"
+      />
+      {error && (
+        <Form.Control.Feedback type="invalid">{t(error)}</Form.Control.Feedback>
       )}
     </Form.Group>
   );

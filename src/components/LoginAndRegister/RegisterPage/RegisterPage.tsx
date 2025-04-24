@@ -1,105 +1,121 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Container, Card, Button } from "react-bootstrap";
 import PageTitle from "../GlobalComponent/PageTitle";
-import { FormConfig } from "../../../formValidation/formConfigTypes"; // אם יש לך את הקובץ הזה
-import { useTranslation } from "react-i18next";
-import { TFunction } from "i18next";
+import { TextField, PasswordField, PhoneField } from "../../Fields/FormFields";
 import { UserService } from "services/userService";
 import { RegisterRequest } from "types/LoginAndRegister/Registration/RegisterRequest";
 
-const createRegisterFormConfig = (t: TFunction): FormConfig => ({
-  fields: [
-    {
-      name: "firstName",
-      label: t("firstName"),
-      type: "text",
-      validations: [{ type: "required", message: t("firstNameRequired") }],
-    },
-    {
-      name: "lastName",
-      label: t("lastName"),
-      type: "text",
-      validations: [{ type: "required", message: t("lastNameRequired") }],
-    },
-    {
-      name: "email",
-      label: t("email"),
-      type: "email",
-      validations: [
-        { type: "required", message: t("emailRequired") },
-        { type: "email", message: t("emailInvalid") },
-      ],
-    },
-    {
-      name: "password",
-      label: t("password"),
-      type: "password",
-      validations: [
-        { type: "required", message: t("passwordRequired") },
-        { type: "minLength", value: 6, message: t("passwordMinLength") },
-      ],
-    },
-    {
-      name: "confirmPassword",
-      label: t("confirmPassword"),
-      type: "password",
-      validations: [
-        { type: "required", message: t("confirmPasswordRequired") },
-        { type: "match", field: "password", message: t("passwordsMustMatch") },
-      ],
-    },
-    {
-      name: "telephone",
-      label: t("telephone"),
-      type: "tel",
-      validations: [
-        { type: "required", message: t("telephoneRequired") },
-        {
-          type: "pattern",
-          value: "^[0-9]{10}$",
-          message: t("telephoneInvalid"),
-        },
-      ],
-    },
-  ],
-  buttons: [
-    { type: "submit", label: t("register"), className: "btn btn-primary" },
-  ],
-  onSubmit: async (formData) => {
-    const userService = new UserService();
-    let data: RegisterRequest = {
-      FirstName: formData.firstName,
-      LastName: formData.lastName,
-      Telephone: formData.telephone,
-      Email: formData.email,
-      Password: formData.password,
-      ConfirmPassword: formData.confirmPassword,
-    };
-    //const response = await userService.register(data);
-  },
-});
-
 const RegisterPage: React.FC = () => {
-  const { t } = useTranslation();
+  const [formData, setFormData] = useState<RegisterRequest>({
+    FirstName: "",
+    LastName: "",
+    Email: "",
+    Telephone: "",
+    Password: "",
+    ConfirmPassword: "",
+  });
 
-  const [registerFormConfig, setRegisterFormConfig] =
-    useState<FormConfig | null>(null);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const userService = new UserService();
+    const response = await userService.register(formData);
+    // Handle response here
+  };
 
-  useEffect(() => {
-    setRegisterFormConfig(createRegisterFormConfig(t));
-  }, [t]);
-
-  if (!registerFormConfig) return null;
+  const handleChange = (field: keyof RegisterRequest) => (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
   return (
-    <>
-      <div className="container mt-5">
-        <div className="d-flex justify-content-center">
-          <div className="w-25">
-            <PageTitle text={t("registerScreen")} className="text-center" />
-          </div>
-        </div>
+    <Container className="mt-5">
+      <div className="d-flex justify-content-center">
+        <Card
+          className="shadow-lg"
+          style={{ width: "100%", maxWidth: "600px" }}
+        >
+          <Card.Body className="p-4">
+            <PageTitle text="הרשמה למערכת" className="text-center mb-4" />
+            <form onSubmit={handleSubmit}>
+              <div className="row">
+                <div className="col-md-6">
+                  <TextField
+                    label="שם פרטי"
+                    name="FirstName"
+                    value={formData.FirstName}
+                    onChange={handleChange("FirstName")}
+                    placeholder="הכנס שם פרטי"
+                    required={true}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <TextField
+                    label="שם משפחה"
+                    name="LastName"
+                    value={formData.LastName}
+                    onChange={handleChange("LastName")}
+                    placeholder="הכנס שם משפחה"
+                    required={true}
+                  />
+                </div>
+              </div>
+
+              <TextField
+                label="אימייל"
+                name="Email"
+                value={formData.Email}
+                onChange={handleChange("Email")}
+                placeholder="הכנס אימייל"
+                required={true}
+              />
+
+              <PhoneField
+                label="טלפון"
+                name="Telephone"
+                value={formData.Telephone}
+                onChange={handleChange("Telephone")}
+                placeholder="הכנס מספר טלפון"
+                required={true}
+              />
+
+              <div className="row">
+                <div className="col-md-6">
+                  <PasswordField
+                    label="סיסמה"
+                    name="Password"
+                    value={formData.Password}
+                    onChange={handleChange("Password")}
+                    placeholder="הכנס סיסמה"
+                    required={true}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <PasswordField
+                    label="אימות סיסמה"
+                    name="ConfirmPassword"
+                    value={formData.ConfirmPassword}
+                    onChange={handleChange("ConfirmPassword")}
+                    placeholder="הכנס סיסמה שוב"
+                    required={true}
+                  />
+                </div>
+              </div>
+
+              <Button
+                type="submit"
+                variant="primary"
+                className="btn btn-outline-primary btn-success p-2 w-100 mt-3"
+                size="lg"
+              >
+                הרשמה
+              </Button>
+            </form>
+          </Card.Body>
+        </Card>
       </div>
-    </>
+    </Container>
   );
 };
 

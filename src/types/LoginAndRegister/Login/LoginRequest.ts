@@ -1,4 +1,4 @@
 export type LoginRequest = {
-    email: string;
-    password: boolean;
-  }
+  email: string;
+  password: string;
+};
