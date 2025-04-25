@@ -10,6 +10,7 @@ import { AddPropertyModel } from "types/Property/AddPropertyModel";
 import { PropertyService } from "services/propertyService";
 import { useNavigate } from "react-router-dom";
 import "./AdPostingForm.css";
+import { SelectOption } from "types/Categories/SelectOption";
 
 const AdPostingForm: React.FC = observer(() => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -41,6 +42,21 @@ const AdPostingForm: React.FC = observer(() => {
     }
   };
 
+  // The onSearch function:
+  const handleSearch = async (query: string): Promise<SelectOption[]> => {
+    if (!query) return [];
+
+    // Simulate delay
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    const propertyService = new PropertyService();
+    const response = await propertyService.getAddressDetails(query);
+    return (
+      response?.map((item) => ({
+        label: item.addressDetail, // Or whatever makes sense
+        value: item.addressVal, // Or item.address, depending on your data
+      })) ?? []
+    );
+  };
   const handleSubmit = async () => {
     console.log(propertyStore.propertyToAdd);
     const propertyService = new PropertyService();
@@ -58,6 +74,7 @@ const AdPostingForm: React.FC = observer(() => {
           propertyStore.propertyToAdd[field.name as keyof AddPropertyModel] ||
           ""
         }
+        onSearch={handleSearch}
         onChange={handleChange(field.name)}
         options={field.options}
         placeHolder={field.placeHolder}

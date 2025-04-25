@@ -32,6 +32,31 @@ const AdPostingForm: React.FC = observer(() => {
     }
   };
 
+  interface SelectOption {
+    label: string;
+    value: string | number;
+  }
+
+  const availableOptions: SelectOption[] = [
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Orange", value: "orange" },
+    { label: "Grape", value: "grape" },
+    { label: "Pineapple", value: "pineapple" },
+  ];
+
+  // The onSearch function:
+  const handleSearch = async (query: string): Promise<SelectOption[]> => {
+    if (!query) return [];
+
+    // Simulate delay
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    return availableOptions.filter((option) =>
+      option.label.toLowerCase().includes(query.toLowerCase())
+    );
+  };
+
   const handleBack = () => {
     if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
@@ -58,6 +83,7 @@ const AdPostingForm: React.FC = observer(() => {
           propertyStore.propertyToAdd[field.name as keyof AddPropertyModel] ||
           ""
         }
+        //onSearch={handleSearch}
         onChange={handleChange(field.name)}
         options={field.options}
         placeHolder={field.placeHolder}

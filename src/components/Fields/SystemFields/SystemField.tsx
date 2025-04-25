@@ -11,7 +11,6 @@ import React from "react";
 import "./SystemField.css";
 import { SelectOption } from "types/Categories/SelectOption";
 import { FieldType } from "types/Fields/FieldType";
-
 interface SystemFieldProps {
   fieldType: FieldType;
   label: string;
@@ -64,7 +63,7 @@ const SystemField: React.FC<SystemFieldProps> = ({
             placeholder={placeHolder}
           />
         );
-        case FieldType.InputNumber:
+      case FieldType.InputNumberField:
         return (
           <NumberField
             label={label}

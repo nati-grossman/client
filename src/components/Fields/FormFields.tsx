@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, InputGroup, ListGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-
 // Custom styles
 const fieldStyles = {
   border: "0px",

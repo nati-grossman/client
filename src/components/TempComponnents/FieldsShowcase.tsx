@@ -171,7 +171,7 @@ const FieldsShowcase: React.FC = () => {
           </Card>
         </Col>
 
-        <Col md={6} lg={4} className="mb-4">
+        {/* <Col md={6} lg={4} className="mb-4">
           <Card>
             <Card.Body>
               <h5 className="card-title">Street Autocomplete</h5>
@@ -223,7 +223,7 @@ const FieldsShowcase: React.FC = () => {
               />
             </Card.Body>
           </Card>
-        </Col>
+        </Col> */}
 
         <Col md={6} lg={4} className="mb-4">
           <Card>
