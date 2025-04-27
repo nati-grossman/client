@@ -103,12 +103,14 @@ const SystemField: React.FC<SystemFieldProps> = ({
           );
           return null;
         }
+        const selectedOption = (options || []).find(opt => opt.value === value);
+
         return (
           <AutocompleteField
             label={label}
             name={name}
             onChange={onChange}
-            value={value as string}
+            value={selectedOption?.label || ''} // Show the name
             required={reqired}
             placeholder={placeHolder}
             onSearch={onSearch}
