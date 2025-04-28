@@ -114,16 +114,21 @@ const SystemField: React.FC<SystemFieldProps> = ({
           );
           return null;
         }
+        const selectedOption = (options || []).find(
+          (opt) => opt.value === value
+        );
+
         return (
           <AutocompleteField
             label={label}
             name={name}
             onChange={onChange}
-            value={value as string}
+            value={selectedOption?.label || ""}
             onSearch={onSearch}
             minChars={minChars}
             debounceMs={debounceMs}
             required={required}
+            placeHolder={placeHolder}
             error={showError ? error : undefined}
           />
         );
