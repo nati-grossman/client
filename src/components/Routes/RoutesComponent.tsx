@@ -9,6 +9,9 @@ import ApartmentsForRent from "../Apartments/Rent/ApartmentsForRent";
 import ApartmentsForSale from "../Apartments/Sale/ApartmentsForSale";
 import ShabbatHouses from "../Apartments/Shabbat/ShabbatHouses";
 import CategorySelectionPage from "../AdPosting/CategorySelectionPage";
+import HomeAddress from "../HomeAddress/HomeAddress";
+import HomeFeatures from "../HomeFeatures/HomeFeatures";
+import ValuationForm from "../ValuationForm/ValuationForm";
 
 const RoutesComponent: React.FC = () => {
   return (
@@ -23,6 +26,9 @@ const RoutesComponent: React.FC = () => {
       <Route path="/sales/:location" element={<ApartmentsForSale />} />
       <Route path="/shabbat/:location" element={<ShabbatHouses />} />
       <Route path="/select-category" element={<CategorySelectionPage />} />
+      <Route path="/home-address" element={<HomeAddress />} />
+      <Route path="/home-features" element={<HomeFeatures />} />
+      <Route path="/valuation" element={<ValuationForm />} />
     </Routes>
   );
 };

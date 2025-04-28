@@ -9,15 +9,16 @@ body {
 
 /* App.css או הקובץ שלך */
 .main-content {
-  min-height: calc(100vh - 150px); /* מינימום גובה תוכן */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* וודא שהתוכן יתפוס את כל הגובה */
 }
 
 /* אם יש צורך להוסיף מרווח בין הניווט לפוטר */
 .nav-footer-spacing {
-  margin-bottom: 50px; /* המרווח בין הניווט לפוטר */
+  flex: 1;
+  min-height: calc(100vh - 200px); /* מבטיח מרחק מינימלי בין Header ל-Footer */
+  padding: 2rem 0; /* מוסיף ריווח נוסף מלמעלה ומלמטה */
 }
 
 /* Form Controls */
@@ -25,4 +26,11 @@ body {
 .form-select:focus,
 .form-control:focus {
   border-bottom: 3px solid var(--site-primary-light) !important;
+}
+
+/* Custom Variables */
+:root {
+  --site-primary: #6c5ce7;
+  --site-primary-light: #7e72e8;
+  --site-primary-dark: #5a4ae0;
 }

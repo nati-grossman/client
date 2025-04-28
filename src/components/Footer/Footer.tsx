@@ -34,6 +34,15 @@ const Footer: React.FC = () => {
               <Nav.Link as={Link} to="/post-ad" className="text-white">
                 Ad Posting Form (Dev)
               </Nav.Link>
+              <Nav.Link as={Link} to="/home-address" className="text-white">
+                כתובת הנכס
+              </Nav.Link>
+              <Nav.Link as={Link} to="/home-features" className="text-white">
+                תכונות הנכס
+              </Nav.Link>
+              <Nav.Link as={Link} to="/valuation" className="text-white">
+                הערכת שווי נכס
+              </Nav.Link>
             </Nav>
           </Col>
 

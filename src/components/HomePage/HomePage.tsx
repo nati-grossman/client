@@ -10,11 +10,7 @@ interface LoginResponse {
 
 const HomePage: React.FC = () => {
   const { t } = useTranslation();
-  return (
-    <>
-      <div>Home Page</div>
-    </>
-  );
+  return <div>{/* Add your homepage content here */}</div>;
 };
 
 export default HomePage;
