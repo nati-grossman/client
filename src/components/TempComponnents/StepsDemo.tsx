@@ -83,11 +83,11 @@ const AdPostingForm: React.FC = observer(() => {
           propertyStore.propertyToAdd[field.name as keyof AddPropertyModel] ||
           ""
         }
-        //onSearch={handleSearch}
+        onSearch={handleSearch}
         onChange={handleChange(field.name)}
         options={field.options}
         placeHolder={field.placeHolder}
-        reqired={field.reqired}
+        required={field.required}
       />
     ));
   };

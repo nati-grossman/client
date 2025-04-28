@@ -11,25 +11,110 @@ import { PropertyService } from "services/propertyService";
 import { useNavigate } from "react-router-dom";
 import "./AdPostingForm.css";
 import { SelectOption } from "types/Categories/SelectOption";
+import { Field } from "types/Categories/Field";
+
+interface FieldValidation {
+  [key: string]: {
+    touched: boolean;
+    error?: string;
+  };
+}
 
 const AdPostingForm: React.FC = observer(() => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [fieldValidation, setFieldValidation] = useState<FieldValidation>({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Log the levels when they change
-    console.log("Category levels updated:", categoriesStore.levels);
-  }, []);
+    // Check if categories are loaded
+    if (!categoriesStore.levels || categoriesStore.levels.length === 0) {
+      categoriesStore.fetchCategories();
+      return;
+    }
 
-  const handleChange = (field: string) => (value: any) => {
+    // Initialize validation state for current step fields
+    const currentFields = JSON.parse(
+      JSON.stringify(categoriesStore.levels[currentStep]?.fields || [])
+    ) as Field[];
+    const newValidation: FieldValidation = {};
+    currentFields.forEach((field: Field) => {
+      if (!fieldValidation[field.name]) {
+        newValidation[field.name] = {
+          touched: false,
+          error: undefined,
+        };
+      }
+    });
+    setFieldValidation((prev) => ({ ...prev, ...newValidation }));
+  }, [currentStep, categoriesStore.levels]);
+
+  // Add loading state
+  if (!categoriesStore.levels || categoriesStore.levels.length === 0) {
+    return <div>Loading categories...</div>;
+  }
+
+  const validateField = (fieldName: string, value: any): string | undefined => {
+    const currentFields = JSON.parse(
+      JSON.stringify(categoriesStore.levels[currentStep]?.fields || [])
+    ) as Field[];
+    const field = currentFields.find((f: Field) => f.name === fieldName);
+
+    if (!field) {
+      return undefined;
+    }
+
+    if (field.required) {
+      if (!value || (typeof value === "string" && value.trim() === "")) {
+        return "שדה חובה";
+      }
+    }
+    return undefined;
+  };
+
+  const handleChange = (fieldName: string) => (value: any) => {
     if (propertyStore.propertyToAdd) {
-      set(propertyStore.propertyToAdd, field, value);
+      set(propertyStore.propertyToAdd, fieldName, value);
+      setFieldValidation((prev) => ({
+        ...prev,
+        [fieldName]: {
+          touched: true,
+          error: validateField(fieldName, value),
+        },
+      }));
     }
   };
 
+  const validateStep = (): boolean => {
+    const currentFields = JSON.parse(
+      JSON.stringify(categoriesStore.levels[currentStep]?.fields || [])
+    ) as Field[];
+    let isValid = true;
+    const newValidation = { ...fieldValidation };
+
+    currentFields.forEach((field: Field) => {
+      if (field.required) {
+        const value =
+          propertyStore.propertyToAdd[field.name as keyof AddPropertyModel];
+        const error = validateField(field.name, value);
+        if (error) {
+          isValid = false;
+          newValidation[field.name] = {
+            touched: true,
+            error,
+          };
+        }
+      }
+    });
+
+    setFieldValidation(newValidation);
+    return isValid;
+  };
+
   const handleNext = () => {
-    if (currentStep < categoriesStore.levels.length) {
-      setCurrentStep((prev) => prev + 1);
+    if (validateStep()) {
+      if (currentStep < categoriesStore.levels.length) {
+        setCurrentStep((prev) => prev + 1);
+      }
     }
   };
 
@@ -37,30 +122,29 @@ const AdPostingForm: React.FC = observer(() => {
     if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
     } else {
-      // Navigate back to category selection page when on the first step
       navigate("/select-category");
     }
   };
 
-  // The onSearch function:
   const handleSearch = async (query: string): Promise<SelectOption[]> => {
     if (!query) return [];
-
-    // Simulate delay
     await new Promise((resolve) => setTimeout(resolve, 300));
     const propertyService = new PropertyService();
     const response = await propertyService.getAddressDetails(query);
     return (
       response?.map((item) => ({
-        label: item.addressDetail, // Or whatever makes sense
-        value: item.addressVal, // Or item.address, depending on your data
+        label: item.addressDetail,
+        value: item.addressVal,
       })) ?? []
     );
   };
+
   const handleSubmit = async () => {
-    console.log(propertyStore.propertyToAdd);
-    const propertyService = new PropertyService();
-    await propertyService.addProperty(propertyStore.propertyToAdd);
+    if (validateStep()) {
+      console.log(propertyStore.propertyToAdd);
+      const propertyService = new PropertyService();
+      await propertyService.addProperty(propertyStore.propertyToAdd);
+    }
   };
 
   const renderStepContent = () => {
@@ -78,7 +162,9 @@ const AdPostingForm: React.FC = observer(() => {
         onChange={handleChange(field.name)}
         options={field.options}
         placeHolder={field.placeHolder}
-        reqired={field.reqired}
+        required={field.required}
+        error={fieldValidation[field.name]?.error}
+        touched={fieldValidation[field.name]?.touched}
       />
     ));
   };
