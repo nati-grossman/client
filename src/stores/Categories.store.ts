@@ -18,6 +18,7 @@ class CategoriesStore {
     this.categories = categories;
     this.categoriesFetched = true;
   }
+
   setLevels(levels: Level[]) {
     this.levels = levels;
   }

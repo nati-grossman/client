@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Card, Button } from "react-bootstrap";
+import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import StepIndicator from "./StepIndicator";
 import SystemField from "components/Fields/SystemFields/SystemField";
 import { observer } from "mobx-react-lite";
@@ -148,25 +148,60 @@ const AdPostingForm: React.FC = observer(() => {
   };
 
   const renderStepContent = () => {
-    return categoriesStore?.levels[currentStep]?.fields.map((field, index) => (
-      <SystemField
-        key={index}
-        fieldType={field.fieldType}
-        label={field.label}
-        name={field.name}
-        value={
-          propertyStore.propertyToAdd[field.name as keyof AddPropertyModel] ||
-          ""
-        }
-        onSearch={handleSearch}
-        onChange={handleChange(field.name)}
-        options={field.options}
-        placeHolder={field.placeHolder}
-        required={field.required}
-        error={fieldValidation[field.name]?.error}
-        touched={fieldValidation[field.name]?.touched}
-      />
-    ));
+    const fields = categoriesStore?.levels[currentStep]?.fields || [];
+    const rows = [];
+
+    for (let i = 0; i < fields.length; i += 2) {
+      const field1 = fields[i];
+      const field2 = fields[i + 1];
+
+      rows.push(
+        <Row key={i} className="mb-3">
+          <Col md={6}>
+            <SystemField
+              fieldType={field1.fieldType}
+              label={field1.label}
+              name={field1.name}
+              value={
+                propertyStore.propertyToAdd[
+                  field1.name as keyof AddPropertyModel
+                ] || ""
+              }
+              onSearch={handleSearch}
+              onChange={handleChange(field1.name)}
+              options={field1.options}
+              placeHolder={field1.placeHolder}
+              required={field1.required}
+              error={fieldValidation[field1.name]?.error}
+              touched={fieldValidation[field1.name]?.touched}
+            />
+          </Col>
+          {field2 && (
+            <Col md={6}>
+              <SystemField
+                fieldType={field2.fieldType}
+                label={field2.label}
+                name={field2.name}
+                value={
+                  propertyStore.propertyToAdd[
+                    field2.name as keyof AddPropertyModel
+                  ] || ""
+                }
+                onSearch={handleSearch}
+                onChange={handleChange(field2.name)}
+                options={field2.options}
+                placeHolder={field2.placeHolder}
+                required={field2.required}
+                error={fieldValidation[field2.name]?.error}
+                touched={fieldValidation[field2.name]?.touched}
+              />
+            </Col>
+          )}
+        </Row>
+      );
+    }
+
+    return rows;
   };
 
   return (

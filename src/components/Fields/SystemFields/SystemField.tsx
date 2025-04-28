@@ -128,7 +128,7 @@ const SystemField: React.FC<SystemFieldProps> = ({
             minChars={minChars}
             debounceMs={debounceMs}
             required={required}
-            placeHolder={placeHolder}
+            placeholder={placeHolder}
             error={showError ? error : undefined}
           />
         );
