@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, Button, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -52,8 +52,10 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
       className="shadow-sm d-none d-lg-flex header-navbar"
     >
       <div className="container-fluid px-4">
-        {/* לוגו בצד ימין */}
-        <Navbar.Brand href="#">לוגו</Navbar.Brand>
+        {/* לוגו בצד ימין עם קישור לדף הבית */}
+        <Navbar.Brand as={Link} to="/" className="brand-logo">
+          לוגו
+        </Navbar.Brand>
 
         {/* קטגוריות במרכז */}
         <Nav className="mx-auto category-nav">
