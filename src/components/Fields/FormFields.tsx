@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, InputGroup, ListGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import FeatureCheckbox from "./SystemFields/FeatureCheckbox";
 // Custom styles
 const fieldStyles = {
   border: "0px",
@@ -176,27 +177,18 @@ export const CheckboxField: React.FC<Omit<BaseFieldProps, "placeholder">> = ({
   const { t } = useTranslation();
 
   return (
-    <Form.Group className="mb-3">
-      <div className="d-flex align-items-center">
-        <Form.Check
-          type="checkbox"
-          id={name}
-          checked={value}
-          onChange={(e) => onChange(e.target.checked)}
-          isInvalid={!!error}
-          disabled={disabled}
-          style={customControlStyles}
-          className="mx-2"
-        />
-        <Form.Label htmlFor={name} className="mb-0">
-          {t(label)}
-          {required && <span className="text-danger">*</span>}
-        </Form.Label>
-      </div>
-      {error && (
-        <Form.Control.Feedback type="invalid">{t(error)}</Form.Control.Feedback>
-      )}
-    </Form.Group>
+    <FeatureCheckbox
+      name={name}
+      label={label}
+      value={value}
+      onChange={onChange}
+      required={required}
+      error={error}
+      disabled={false}
+      customControlStyles={{ marginLeft: "10px" }}
+      t={t}
+/>
+
   );
 };
 
