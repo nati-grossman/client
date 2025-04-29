@@ -216,23 +216,44 @@ const AdPostingForm: React.FC = observer(() => {
         <Card.Body>
           <form>
             {renderStepContent()}
-            <div className="d-flex justify-content-between mt-4">
-              <Button
-                variant="outline-secondary"
-                onClick={handleBack}
-                disabled={false}
-              >
-                {currentStep === 0 ? "חזור לבחירת קטגוריה" : "חזור"}
-              </Button>
+            <div className="mt-4">
               {currentStep === categoriesStore.levels.length - 1 ? (
-                <Button variant="success" onClick={handleSubmit}>
+                <Button
+                  variant="success"
+                  onClick={handleSubmit}
+                  className="w-100 mb-3 btn-success"
+                >
                   שלח
                 </Button>
               ) : (
-                <Button variant="primary" onClick={handleNext}>
+                <Button
+                  variant="success"
+                  onClick={handleNext}
+                  className="w-100 mb-3 btn-success"
+                >
                   הבא
                 </Button>
               )}
+
+              <div className="text-center">
+                <Button
+                  variant="link"
+                  onClick={handleBack}
+                  className="text-decoration-none"
+                >
+                  {currentStep === 0 ? (
+                    <>
+                      <span className="ms-2">→</span>
+                      חזור לבחירת קטגוריה
+                    </>
+                  ) : (
+                    <>
+                      <span className="ms-2">→</span>
+                      חזור
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
           </form>
         </Card.Body>
