@@ -3,14 +3,10 @@ import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { categoriesStore } from "stores/Categories.store";
 import { observer } from "mobx-react-lite";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
-  faHome,
-  faBuilding,
-  faMapMarkerAlt,
-  faInfoCircle
+  faHome
 } from "@fortawesome/free-solid-svg-icons";
-import "./CategorySelectionPage.css";
+import SystemSelection, { SystemOption } from "components/Common/SystemSelection/SystemSelection";
 
 const CategorySelectionPage: React.FC = observer(() => {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,10 +30,14 @@ const CategorySelectionPage: React.FC = observer(() => {
     setIsLoading(false);
   };
 
-  const handleCategorySelect = async (categoryNumber: number) => {
+  const handleOptionSelect = async (optionId: number | string) => {
     try {
-      await categoriesStore.fetchCategoryLevels(categoryNumber);
-      navigate("/post-ad", { state: { categoryNumber } });
+      await categoriesStore.fetchCategoryLevels(Number(optionId));
+      if(categoriesStore.isSupportMediation) {
+        navigate("/mediation");
+      } else {
+        navigate("/post-ad", { state: { categoryNumber: optionId } });
+      }
     } catch (error) {
       console.error("Error fetching category levels:", error);
     }
@@ -62,26 +62,18 @@ const CategorySelectionPage: React.FC = observer(() => {
     );
   }
 
+  const systemOptions: SystemOption[] = categoriesStore.categories.map(category => ({
+    id: category.categoryNumber,
+    name: category.categoryName,
+    icon: getCategoryIcon(category.categoryNumber)
+  }));
+
   return (
-    <Container className="ad-posting-container" style={{ direction: "rtl" }}>
-      <h1 className="ad-posting-title">בחר קטגוריה</h1>
-      <div className="ad-posting-grid">
-        {categoriesStore.categories.map((category) => (
-          <div
-            key={category.categoryNumber}
-            className="ad-posting-card-item"
-            onClick={() => handleCategorySelect(category.categoryNumber)}
-          >
-            <div className="ad-posting-card-content">
-              <div className="ad-posting-card-icon">
-                <FontAwesomeIcon icon={getCategoryIcon(category.categoryNumber)} />
-              </div>
-              <div className="ad-posting-card-title">{category.categoryName}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Container>
+    <SystemSelection
+      options={systemOptions}
+      onOptionSelect={handleOptionSelect}
+      title="בחר קטגוריה"
+    />
   );
 });
 

@@ -17,7 +17,6 @@ body {
 /* אם יש צורך להוסיף מרווח בין הניווט לפוטר */
 .nav-footer-spacing {
   flex: 1;
-  min-height: calc(100vh - 200px); /* מבטיח מרחק מינימלי בין Header ל-Footer */
   padding: 2rem 0; /* מוסיף ריווח נוסף מלמעלה ומלמטה */
 }
 

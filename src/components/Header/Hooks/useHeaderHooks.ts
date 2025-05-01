@@ -7,7 +7,7 @@ export const useHeaderHooks = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const isAuthenticated = useCallback(async (): Promise<boolean> => {
     const token = localStorage.getItem("authToken");
-
+    debugger;
     if (!token) {
       return false;
     }
@@ -23,12 +23,7 @@ export const useHeaderHooks = () => {
   }, []);
 
   const handleStartAdPosting = useCallback(async () => {
-    const auth = await isAuthenticated();
-    if (!auth) {
-      navigate("/login");
-    } else {
       navigate("/select-category");
-    }
   }, [isAuthenticated, navigate]);
 
   const handleMouseEnter = useCallback((id: string) => {
@@ -49,5 +44,6 @@ export const useHeaderHooks = () => {
     handleMouseLeave,
     handleClick,
     handleStartAdPosting,
+    isAuthenticated
   };
 };

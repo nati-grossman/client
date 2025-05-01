@@ -6,10 +6,11 @@ import { Level } from "types/Categories/Level";
 class CategoriesStore {
   categories: Category[] = [];
   levels: Level[] = [];
+  categoryNumberSelected: number = 0;
   categoriesFetched: boolean = false;
   isLoading: boolean = false;
   fetchPromise: Promise<void> | null = null;
-
+  isSupportMediation: boolean = false;
   constructor() {
     makeAutoObservable(this);
   }
@@ -18,11 +19,15 @@ class CategoriesStore {
     this.categories = categories;
     this.categoriesFetched = true;
   }
-
+  setCategoryNumberSelected(categoryNumber: number) {
+    this.categoryNumberSelected = categoryNumber;
+  }
   setLevels(levels: Level[]) {
     this.levels = levels;
   }
-
+  setIsSupportMediation(isSupportMediation: boolean) {
+    this.isSupportMediation = isSupportMediation;
+  }
   async fetchCategories() {
     // If categories are already fetched, return immediately
     if (this.categoriesFetched) {
@@ -63,6 +68,8 @@ class CategoriesStore {
 
     if (response) {
       this.setLevels(response.stepCategoriesModel);
+      this.setIsSupportMediation(response.isSupportMediation);
+      this.setCategoryNumberSelected(categoryNumber);
     } else {
       console.error("Failed to fetch categories:");
     }
