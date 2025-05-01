@@ -2,6 +2,7 @@ import { Navbar, Container, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom"; // ייבוא ה-hook של הניווט
+import { useHeaderHooks } from "../Hooks/useHeaderHooks";
 
 interface MobileNavbarProps {
   toggleMobileMenu: () => void;
@@ -13,11 +14,7 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
   user,
 }) => {
   const navigate = useNavigate(); // יצירת פונקציה לניווט
-
-  const handleStartAdPosting = () => {
-    // Navigate to category selection page
-    navigate("/select-category");
-  };
+const { handleStartAdPosting } = useHeaderHooks();
 
   return (
     <Navbar

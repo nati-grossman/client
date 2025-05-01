@@ -18,7 +18,10 @@ class UserStore {
     this.token = token;
     localStorage.setItem("authToken", token);
   }
-
+  isTokenExists(): boolean {
+    const token = localStorage.getItem("authToken");
+    return token !== null && token !== "";
+  }
   clearUser() {
     this.user = null;
     this.token = null;

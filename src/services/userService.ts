@@ -1,8 +1,9 @@
-import { postData } from "./apiService";
+import { getData, postData } from "./apiService";
 import { LoginResponse } from "types/LoginAndRegister/Login/LoginResponse";
 import { LoginRequest } from "types/LoginAndRegister/Login/LoginRequest";
 import { RegisterRequest } from "types/LoginAndRegister/Registration/RegisterRequest";
 import { RegisterResponse } from "types/LoginAndRegister/Registration/RegisterResponse";
+import { Authenticate } from "types/LoginAndRegister/Authenticate/Authenticate";
 
 export class UserService {
   login = async (data: LoginRequest) => {
@@ -18,6 +19,15 @@ export class UserService {
     const endpoint = "/User/registration";
     try {
       const response = await postData<RegisterResponse>(endpoint, data);
+      return response;
+    } catch (error: unknown) {
+      console.error("Error:", error);
+    }
+  };
+  authenticate = async () => {
+    const endpoint = "/User/authenticate";
+    try {
+      const response = await getData<Authenticate>(endpoint);
       return response;
     } catch (error: unknown) {
       console.error("Error:", error);

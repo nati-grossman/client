@@ -9,6 +9,8 @@ import { CategoriesService } from "services/categoriesService";
 import { categoriesStore } from "stores/Categories.store";
 import { observer } from "mobx-react-lite";
 import { City } from "types/Cities/City";
+import { UserService } from "services/userService";
+import { useHeaderHooks } from "../Hooks/useHeaderHooks";
 
 interface DesktopNavbarProps {
   user: { loggedIn: boolean; avatar: string };
@@ -18,30 +20,11 @@ interface DesktopNavbarProps {
 // and on click on one of the category, will triggerd the categoriesStore.fetchCategoryLevels func,
 // with the category number
 const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const navigate = useNavigate();
-
+  const { handleStartAdPosting,handleMouseEnter,handleMouseLeave,handleClick,openDropdown } = useHeaderHooks();
   useEffect(() => {
     // Only fetch category levels, categories are already fetched by Header
     categoriesStore.fetchCategoryLevels(1);
   }, []);
-
-  const handleMouseEnter = (id: string) => {
-    setOpenDropdown(id);
-  };
-
-  const handleMouseLeave = () => {
-    setOpenDropdown(null);
-  };
-
-  const handleClick = (id: string) => {
-    setOpenDropdown((prev) => (prev === id ? null : id));
-  };
-
-  const handleStartAdPosting = () => {
-    // Navigate to category selection page
-    navigate("/select-category");
-  };
 
   return (
     <Navbar
@@ -63,7 +46,8 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
             <div
               key={category.categoryNumber}
               onMouseEnter={() =>
-                handleMouseEnter(`nav-dropdown-${category.categoryNumber}`)
+                //handleMouseEnter(`nav-dropdown-${category.categoryNumber}`)
+                handleMouseEnter
               }
               onMouseLeave={handleMouseLeave}
             >
