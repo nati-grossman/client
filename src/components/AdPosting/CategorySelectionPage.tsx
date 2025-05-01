@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Container, Card } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { categoriesStore } from "stores/Categories.store";
 import { observer } from "mobx-react-lite";
-import { ListGroupField } from "components/Fields/FormFields";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { 
+  faHome,
+  faBuilding,
+  faMapMarkerAlt,
+  faInfoCircle
+} from "@fortawesome/free-solid-svg-icons";
 import "./CategorySelectionPage.css";
 
 const CategorySelectionPage: React.FC = observer(() => {
-  const [selectedCategory, setSelectedCategory] = useState<
-    string | number | null
-  >(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // If categories are already loaded, we don't need to fetch them again
     if (categoriesStore.categoriesFetched) {
       setIsLoading(false);
     } else {
-      // If categories are not loaded, fetch them
       loadCategories();
     }
   }, []);
@@ -33,22 +34,24 @@ const CategorySelectionPage: React.FC = observer(() => {
     setIsLoading(false);
   };
 
-  const handleCategorySelect = async (categoryNumber: string | number) => {
+  const handleCategorySelect = async (categoryNumber: number) => {
     try {
-      // Convert to number if it's a string
-      const categoryNumberValue =
-        typeof categoryNumber === "string"
-          ? parseInt(categoryNumber, 10)
-          : categoryNumber;
-
-      // Fetch the levels for the selected category
-      await categoriesStore.fetchCategoryLevels(categoryNumberValue);
-
-      // Navigate to the post ad form with the selected category
-      navigate("/post-ad", { state: { categoryNumber: categoryNumberValue } });
+      await categoriesStore.fetchCategoryLevels(categoryNumber);
+      navigate("/post-ad", { state: { categoryNumber } });
     } catch (error) {
       console.error("Error fetching category levels:", error);
     }
+  };
+
+  // Map category numbers to icons
+  const getCategoryIcon = (categoryNumber: number) => {
+    const iconMap: { [key: number]: any } = {
+      1: faHome,        // For rent
+      2: faHome,    // For sale
+      3: faHome, // Location
+      4: faHome   // Information
+    };
+    return iconMap[categoryNumber] || faHome;
   };
 
   if (isLoading) {
@@ -59,29 +62,25 @@ const CategorySelectionPage: React.FC = observer(() => {
     );
   }
 
-  // Convert categories to the format expected by ListGroupField
-  const categoryOptions = categoriesStore.categories.map((category) => ({
-    value: category.categoryNumber,
-    label: category.categoryName,
-  }));
-
   return (
-    <Container className="py-5" style={{ direction: "rtl" }}>
-      <h1 className="text-center mb-4">בחר קטגוריה למודעה</h1>
-      <Card className="mt-4 category-form-container">
-        <Card.Body>
-          <div className="width-form">
-            <ListGroupField
-              label=""
-              name="category"
-              value={selectedCategory}
-              onChange={setSelectedCategory}
-              items={categoryOptions}
-              onItemClick={handleCategorySelect}
-            />
+    <Container className="ad-posting-container" style={{ direction: "rtl" }}>
+      <h1 className="ad-posting-title">בחר קטגוריה</h1>
+      <div className="ad-posting-grid">
+        {categoriesStore.categories.map((category) => (
+          <div
+            key={category.categoryNumber}
+            className="ad-posting-card-item"
+            onClick={() => handleCategorySelect(category.categoryNumber)}
+          >
+            <div className="ad-posting-card-content">
+              <div className="ad-posting-card-icon">
+                <FontAwesomeIcon icon={getCategoryIcon(category.categoryNumber)} />
+              </div>
+              <div className="ad-posting-card-title">{category.categoryName}</div>
+            </div>
           </div>
-        </Card.Body>
-      </Card>
+        ))}
+      </div>
     </Container>
   );
 });
