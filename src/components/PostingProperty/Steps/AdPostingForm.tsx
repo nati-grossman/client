@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import "./AdPostingForm.css";
 import { SelectOption } from "types/Categories/SelectOption";
 import { Field } from "types/Categories/Field";
+import { usePopup } from "components/Common/Popup/PopupContext";
 
 interface FieldValidation {
   [key: string]: {
@@ -24,6 +25,7 @@ const AdPostingForm: React.FC = observer(() => {
   const [currentStep, setCurrentStep] = useState(0);
   const [fieldValidation, setFieldValidation] = useState<FieldValidation>({});
   const navigate = useNavigate();
+  const showPopup = usePopup();
 
   useEffect(() => {
     // Check if categories are loaded
@@ -141,9 +143,19 @@ const AdPostingForm: React.FC = observer(() => {
 
   const handleSubmit = async () => {
     if (validateStep()) {
-      console.log(propertyStore.propertyToAdd);
       const propertyService = new PropertyService();
-      await propertyService.addProperty(propertyStore.propertyToAdd);
+      const reponse = await propertyService.addProperty(propertyStore.propertyToAdd);
+      if (reponse) {
+        showPopup({
+          type: 'success',
+          message: 'המודעה נשלחה בהצלחה',
+        });
+      } else {
+        showPopup({
+          type: 'error',
+          message: 'המודעה לא נשלחה',
+        });
+      }
     }
   };
 

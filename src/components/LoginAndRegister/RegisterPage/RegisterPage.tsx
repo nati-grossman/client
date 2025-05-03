@@ -4,6 +4,7 @@ import PageTitle from "../GlobalComponent/PageTitle";
 import { TextField, PasswordField, PhoneField } from "../../Fields/FormFields";
 import { UserService } from "services/userService";
 import { RegisterRequest } from "types/LoginAndRegister/Registration/RegisterRequest";
+import { usePopup } from "components/Common/Popup/PopupContext";
 
 const RegisterPage: React.FC = () => {
   const [formData, setFormData] = useState<RegisterRequest>({
@@ -14,11 +15,22 @@ const RegisterPage: React.FC = () => {
     Password: "",
     ConfirmPassword: "",
   });
-
+  const showPopup = usePopup();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const userService = new UserService();
     const response = await userService.register(formData);
+    if (response?.success) {
+      showPopup({
+        type: 'success',
+        message: 'ההרשמה בוצעה בהצלחה',
+      });
+    } else {
+      showPopup({
+        type: 'error',
+        message: 'ההרשמה נכשלה',
+      });
+    }
     // Handle response here
   };
 

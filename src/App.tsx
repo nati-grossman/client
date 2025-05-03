@@ -4,10 +4,11 @@ import Footer from "./components/Footer/Footer";
 import RoutesComponent from "./components/Routes/RoutesComponent";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
+import { PopupProvider } from "./components/Common/Popup/PopupContext";
 
 const App: React.FC = () => {
   return (
-    <>
+    <PopupProvider>
       <div style={{ direction: "rtl" }}>
         <BrowserRouter>
           <div className="main-content">
@@ -19,7 +20,7 @@ const App: React.FC = () => {
           </div>
         </BrowserRouter>
       </div>
-    </>
+    </PopupProvider>
   );
 };
 
