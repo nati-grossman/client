@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Navbar, Nav, Button, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,7 @@ import { categoriesStore } from "stores/Categories.store";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom"; // ייבוא ה-hook של הניווט
 import { City } from "types/Cities/City";
+import MobileAuthModal from "./MobileAuthModal";
 
 interface MobileMenuOverlayProps {
   isMobileMenuOpen: boolean;
@@ -27,6 +28,9 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
     handleCategoryClick,
   }) => {
     const navigate = useNavigate();
+
+    // State for mobile auth modal
+    const [showMobileAuth, setShowMobileAuth] = useState(false);
 
     const handleStartAdPosting = () => {
       // Navigate to category selection page
@@ -63,6 +67,36 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
           {/* לוגו */}
           <div className="d-flex justify-content-center my-3">
             <Navbar.Brand href="#">לוגו</Navbar.Brand>
+          </div>
+
+          {/* התחברות / הרשמה - מובייל */}
+          <div className="d-flex justify-content-center my-3">
+            <Button
+              className="mobile-auth-open-btn"
+              onClick={() => setShowMobileAuth(true)}
+              style={{
+                width: "100%",
+                background: "var(--site-primary)",
+                color: "#fff",
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: 20,
+              }}
+            >
+              התחברות / הרשמה
+            </Button>
+            <MobileAuthModal
+              show={showMobileAuth}
+              onClose={() => setShowMobileAuth(false)}
+              onLogin={() => {
+                setShowMobileAuth(false);
+                navigate("/login");
+              }}
+              onRegister={() => {
+                setShowMobileAuth(false);
+                navigate("/register");
+              }}
+            />
           </div>
 
           {/* תמונת משתמש */}
