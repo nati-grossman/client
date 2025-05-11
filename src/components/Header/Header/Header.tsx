@@ -27,7 +27,7 @@ export const Header = observer(() => {
 
   // Mock user data - replace with actual user data from your auth system
   const user = {
-    loggedIn: false,
+    loggedIn: true,
     avatar: "",
   };
 

@@ -14,6 +14,7 @@ import HomeAddress from "../HomeAddress/HomeAddress";
 import HomeFeatures from "../HomeFeatures/HomeFeatures";
 import ValuationForm from "../ValuationForm/ValuationForm";
 import AdPostingForm from "components/PostingProperty/Steps/AdPostingForm";
+import Profile from "../Profile/Profile";
 
 const RoutesComponent: React.FC = () => {
   return (
@@ -30,6 +31,7 @@ const RoutesComponent: React.FC = () => {
       <Route path="/home-address" element={<HomeAddress />} />
       <Route path="/home-features" element={<HomeFeatures />} />
       <Route path="/valuation" element={<ValuationForm />} />
+      <Route path="/profile" element={<Profile />} />
 
       {/* Protected Routes */}
       <Route

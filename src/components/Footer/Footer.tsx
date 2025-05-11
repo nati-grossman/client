@@ -43,6 +43,9 @@ const Footer: React.FC = () => {
               <Nav.Link as={Link} to="/valuation" className="text-white">
                 הערכת שווי נכס
               </Nav.Link>
+              <Nav.Link as={Link} to="/profile" className="text-white">
+                פרופיל
+              </Nav.Link>
             </Nav>
           </Col>
 
