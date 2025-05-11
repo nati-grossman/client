@@ -160,10 +160,88 @@
   align-items: center; /* ממורכז אנכית */
   border: 2px solid var(--site-primary-light); /* גבול יפה */
   overflow: hidden; /* לוודא שהתמונה לא תצא מהעיגול */
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .user-avatar svg {
   width: 20px; /* גודל האיקון */
   height: 20px;
   margin: auto;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+}
+
+.user-menu-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.user-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0;
+  min-width: 180px;
+  max-width: 90vw;
+  z-index: 1000;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  direction: rtl;
+  text-align: right;
+}
+
+.user-menu::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: 24px;
+  left: auto;
+  transform: rotate(45deg);
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: right;
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 0.75rem;
+  color: #333;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: var(--site-primary-light);
+  color: white;
+}
+
+.menu-item:hover .menu-icon {
+  color: white;
+}
+
+.menu-icon {
+  margin-right: 0;
+  margin-left: 8px;
+  font-size: 1.1rem;
+  color: var(--site-primary);
+  transition: color 0.2s;
 }
