@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import { Category } from "types/Categories/Category";
@@ -9,6 +9,7 @@ import { useHeaderHooks } from "../Hooks/useHeaderHooks";
 import { userStore } from "stores/User.store";
 import UserMenuPopup from "./UserMenuPopup";
 import "./DesktopNavbar.css";
+import AuthModal from "./AuthModal";
 
 interface DesktopNavbarProps {
   user: { loggedIn: boolean; avatar: string };
@@ -23,6 +24,7 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
     openDropdown,
   } = useHeaderHooks();
   const navigate = useNavigate();
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const handleLogout = () => {
     userStore.clearUser();
@@ -83,6 +85,19 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
           ))}
         </Nav>
         <div className="align-items-center d-flex m-0 me-1">
+          <Button
+            variant="primary"
+            className="me-2"
+            onClick={() => setShowAuthModal(true)}
+          >
+            התחברות / הרשמה
+          </Button>
+          <AuthModal
+            show={showAuthModal}
+            onHide={() => setShowAuthModal(false)}
+            onLogin={handleLogin}
+            onRegister={handleRegister}
+          />
           <Button
             variant="outline-primary"
             className="btn-success p-2"
