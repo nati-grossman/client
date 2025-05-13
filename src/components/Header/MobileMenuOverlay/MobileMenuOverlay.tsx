@@ -14,7 +14,6 @@ import MobileAuthModal from "./MobileAuthModal";
 interface MobileMenuOverlayProps {
   isMobileMenuOpen: boolean;
   toggleMobileMenu: () => void;
-  user: { loggedIn: boolean; avatar: string };
   openCategory: string | null;
   handleCategoryClick: (category: string) => void;
 }
@@ -23,7 +22,6 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
   ({
     isMobileMenuOpen,
     toggleMobileMenu,
-    user,
     openCategory,
     handleCategoryClick,
   }) => {
@@ -101,10 +99,10 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = observer(
 
           {/* תמונת משתמש */}
           <div className="d-flex justify-content-center">
-            {user.loggedIn ? (
+            {true ? (
               <div className="me-2 user-avatar">
                 <img
-                  src={user.avatar}
+                  src={''}
                   alt="User Avatar"
                   className="rounded-circle"
                   width={50}

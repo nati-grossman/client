@@ -12,11 +12,11 @@ const Profile: React.FC = observer(() => {
   const { user } = userStore;
 
   // בדיקה אם המשתמש מחובר
-  React.useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
+  // React.useEffect(() => {
+  //   if (!user) {
+  //     navigate("/login");
+  //   }
+  // }, [user, navigate]);
 
   if (!user) {
     return null;
@@ -57,8 +57,8 @@ const Profile: React.FC = observer(() => {
                   fieldType={FieldType.TextField}
                   label="כתובת אימייל"
                   name="email"
-                  value={user.email || ""}
-                  onChange={handleChange("email")}
+                  value={user.emailAdress || ""}
+                  onChange={handleChange("emailAdress")}
                 />
               </div>
             </Card.Body>

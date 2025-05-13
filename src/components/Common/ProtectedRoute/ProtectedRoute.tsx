@@ -40,6 +40,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = observer(({ children }) =>
   }
 
   if (!isAuthenticated) {
+    // Pass the current location to the login page
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

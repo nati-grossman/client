@@ -8,17 +8,17 @@ import {
   faSignInAlt,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import { userStore } from "stores/User.store";
+import { observer } from "mobx-react-lite";
 
 interface UserMenuPopupProps {
-  user: { loggedIn: boolean; avatar: string };
   onProfile: () => void;
   onLogout: () => void;
   onLogin: () => void;
   onRegister: () => void;
 }
 
-const UserMenuPopup: React.FC<UserMenuPopupProps> = ({
-  user,
+const UserMenuPopup: React.FC<UserMenuPopupProps> = observer(({
   onProfile,
   onLogout,
   onLogin,
@@ -45,21 +45,21 @@ const UserMenuPopup: React.FC<UserMenuPopupProps> = ({
         className="user-avatar"
         onClick={() => setShowUserMenu((prev) => !prev)}
       >
-        {user.loggedIn ? (
-          <Image
-            src={user.avatar}
-            roundedCircle
-            width={30}
-            height={30}
-            className="me-2"
-          />
+        {userStore.isLoggedIn ? (
+          userStore.user?.firstName ? (
+            <div className="avatar-circle">
+              {userStore.user.firstName.charAt(0)}
+            </div>
+          ) : (
+            <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
+          )
         ) : (
           <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
         )}
       </div>
-      {showUserMenu && (
+      {userStore.isLoggedIn && showUserMenu && (
         <div className="user-menu">
-          {user.loggedIn ? (
+          {true ? (
             <>
               <Button
                 variant="link"
@@ -114,6 +114,26 @@ const UserMenuPopup: React.FC<UserMenuPopupProps> = ({
       )}
     </div>
   );
-};
+});
 
 export default UserMenuPopup;
+
+const styles = `
+  .avatar-circle {
+    width: 30px;
+    height: 30px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+  }
+`;
+
+// Add styles to document
+const styleSheet = document.createElement("style");
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);

@@ -12,10 +12,9 @@ import "./DesktopNavbar.css";
 import AuthModal from "./AuthModal";
 
 interface DesktopNavbarProps {
-  user: { loggedIn: boolean; avatar: string };
 }
 
-const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
+const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ }) => {
   const {
     handleStartAdPosting,
     handleMouseEnter,
@@ -107,7 +106,6 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = observer(({ user }) => {
           </Button>
           <div className="me-2">
             <UserMenuPopup
-              user={user}
               onProfile={handleProfileClick}
               onLogout={handleLogout}
               onLogin={handleLogin}

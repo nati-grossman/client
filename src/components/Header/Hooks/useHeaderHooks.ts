@@ -7,7 +7,6 @@ export const useHeaderHooks = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const isAuthenticated = useCallback(async (): Promise<boolean> => {
     const token = localStorage.getItem("authToken");
-    debugger;
     if (!token) {
       return false;
     }

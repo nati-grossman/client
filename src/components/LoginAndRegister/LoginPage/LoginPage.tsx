@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Card, Button } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 import PageTitle from "../GlobalComponent/PageTitle";
 import { TextField, PasswordField } from "../../Fields/FormFields";
 import { LoginRequest } from "types/LoginAndRegister/Login/LoginRequest";
@@ -12,20 +13,26 @@ const LoginPage: React.FC = () => {
     email: "",
     password: "",
   });
-
+  const location = useLocation();
+  const navigate = useNavigate();
   const showPopup = usePopup();
+
+  // Get the previous location from state, or default to home page
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname || "/";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const userService = new UserService();
     const response = await userService.login(formData);
     if (response?.success) {
-      //userStore.setUser(response.data);
-      userStore.setToken(response.data);
+      userStore.setToken(response.data.token);
+      userStore.setUser(response.data.user);
+      console.log(userStore.user);
       showPopup({
         type: 'success',
         message: 'ההתחברות בוצעה בהצלחה',
         title: '',
+        actionHandler: () => navigate(from, { replace: true })
       });
     } else {
       showPopup({

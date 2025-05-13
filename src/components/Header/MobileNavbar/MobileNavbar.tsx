@@ -3,15 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom"; // ייבוא ה-hook של הניווט
 import { useHeaderHooks } from "../Hooks/useHeaderHooks";
+import { userStore } from "stores/User.store";
+import { observer } from "mobx-react-lite";
 
 interface MobileNavbarProps {
   toggleMobileMenu: () => void;
-  user: { loggedIn: boolean; avatar: string };
 }
 
-const MobileNavbar: React.FC<MobileNavbarProps> = ({
-  toggleMobileMenu,
-  user,
+const MobileNavbar: React.FC<MobileNavbarProps> = observer(({
+  toggleMobileMenu
 }) => {
   const navigate = useNavigate(); // יצירת פונקציה לניווט
 const { handleStartAdPosting } = useHeaderHooks();
@@ -49,15 +49,15 @@ const { handleStartAdPosting } = useHeaderHooks();
 
         {/* תמונת משתמש */}
         <div className="d-flex justify-content-center">
-          {user.loggedIn ? (
+          {userStore.isLoggedIn ? (
             <div className="me-2 user-avatar">
-              <img
-                src={user.avatar}
-                alt="User Avatar"
-                className="rounded-circle"
-                width={50}
-                height={50}
-              />
+              {userStore.user?.firstName ? (
+                <div className="avatar-circle">
+                  {userStore.user.firstName.charAt(0)}
+                </div>
+              ) : (
+                <FontAwesomeIcon icon={faUser} className="me-2" size="lg" />
+              )}
             </div>
           ) : (
             <div className="me-2 user-avatar">
@@ -68,6 +68,6 @@ const { handleStartAdPosting } = useHeaderHooks();
       </Container>
     </Navbar>
   );
-};
+});
 
 export default MobileNavbar;

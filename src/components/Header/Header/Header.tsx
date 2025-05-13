@@ -26,25 +26,20 @@ export const Header = observer(() => {
   };
 
   // Mock user data - replace with actual user data from your auth system
-  const user = {
-    loggedIn: true,
-    avatar: "",
-  };
 
   return (
     <header className="header">
       <Container>
         {/* Navbar למסכים גדולים */}
-        <DesktopNavbar user={user} />
+        <DesktopNavbar />
 
         {/* Navbar למובייל */}
-        <MobileNavbar toggleMobileMenu={toggleMobileMenu} user={user} />
+        <MobileNavbar toggleMobileMenu={toggleMobileMenu} />
 
         {/* פופ-אפ למובייל אם התפריט פתוח */}
         <MobileMenuOverlay
           isMobileMenuOpen={isMobileMenuOpen}
           toggleMobileMenu={toggleMobileMenu}
-          user={user}
           openCategory={openCategory}
           handleCategoryClick={handleCategoryClick}
         />

@@ -31,9 +31,16 @@ const RoutesComponent: React.FC = () => {
       <Route path="/home-address" element={<HomeAddress />} />
       <Route path="/home-features" element={<HomeFeatures />} />
       <Route path="/valuation" element={<ValuationForm />} />
-      <Route path="/profile" element={<Profile />} />
 
       {/* Protected Routes */}
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/post-ad"
         element={

@@ -1,4 +1,10 @@
+import { User } from "types/User/User";
+
 export interface LoginResponse {
-    data: string;
+    data: UserLoginResponse;
     success: boolean;
   }
+export interface UserLoginResponse{
+  user: User;
+  token: string;
+}
