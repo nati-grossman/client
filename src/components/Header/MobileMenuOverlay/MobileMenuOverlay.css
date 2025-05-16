@@ -11,7 +11,7 @@
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  padding-top: 50px;
+  padding-top: 30px;
   transition: left 0.5s ease-in-out, visibility 0s 0.5s;
   visibility: hidden;
 }
@@ -25,31 +25,36 @@
 /* עיצוב לתוכן הפופ-אפ */
 .mobile-menu-content {
   position: relative;
-  background-color: white;
-  padding: 20px;
+  background: #fff;
+  padding: 24px 0 0 0;
   width: 90%;
-  height: 90%;
-  max-width: 400px;
-  text-align: center;
-  border-radius: 8px;
+  max-width: 340px;
+  min-height: 80vh;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(80, 80, 160, 0.18);
   overflow-y: auto;
-  transition: transform 0.3s ease-out;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* מיקום האיקס בתוך הפופ-אפ */
 .close-icon {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  font-size: 24px;
+  top: 18px;
+  right: 18px;
+  font-size: 1.6rem;
   cursor: pointer;
-  color: #333;
-  text-align: left;
-  transition: color 0.3s ease-in-out;
+  color: #222;
+  z-index: 2;
+  transition: color 0.2s;
 }
 /* שינוי צבע האיקס בהובר */
 .close-icon:hover {
-  color: red;
+  color: var(--site-primary, #ff9800);
 }
 /* אפקט פתיחה של תתי קטגוריות */
 .submenu {
@@ -68,40 +73,45 @@
 
 /* רווח בין האייקון לתוכן בפופ-אפ */
 .content-spacing {
-  height: 60px; /* תוכל לשנות את הערך בהתאם לצורך */
+  height: 18px;
 }
 
 /* עיצוב עבור כל קטגוריה */
 .category-item {
   width: 100%;
-  border-bottom: 1px solid #ddd; /* פס דק בין כל קטגוריה */
-  padding: 10px 0;
-  justify-content: flex-end; /* מציב את כל התוכן לימין */
-  align-items: center;
+  padding: 0.7rem 0 0.7rem 0;
+  border-bottom: 1.5px dotted #e0e0e0;
+  font-size: 1.08rem;
+  color: #222;
+  font-weight: 500;
+  background: transparent;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.category-item:last-child {
+  border-bottom: none;
 }
 
 /* עיצוב תוכן הקטגוריה (שם + אייקון) */
 .category-content {
   display: flex;
-  justify-content: flex-end; /* כל התוכן יהיה מימין */
   align-items: center;
-  width: 100%;
   cursor: pointer;
 }
 
 /* אייקון מצד ימין */
 .category-icon {
-  margin-left: 10px; /* ריווח בין האייקון לשם הקטגוריה */
-  font-size: 16px;
-  color: #333;
+  font-size: 1.1rem;
+  color: #bbb;
 }
 
 /* שם הקטגוריה */
 .category-title {
-  text-align: right; /* מיישר את הטקסט לימין */
-  font-size: 18px;
-  color: #333;
-  margin-right: 10px; /* ריווח בין שם הקטגוריה לאייקון */
+  margin-right: 10px;
+  font-size: 1.08rem;
+  color: #222;
 }
 
 /* פופאפ התחברות/הרשמה - overlay */
@@ -148,14 +158,20 @@
   font-size: 1.4rem;
   font-weight: 700;
   text-align: center;
-  padding: 1.2rem 1rem 1.2rem 2.5rem;
+  padding: 0.6rem 1rem 0.6rem 1.5rem;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-auth-modal-header span {
+  flex: 1;
+  text-align: center;
 }
 
 .mobile-auth-modal-close {
-  position: absolute;
-  top: 16px;
-  left: 18px;
+  position: static;
   background: none;
   border: none;
   color: #fff;
@@ -164,6 +180,7 @@
   cursor: pointer;
   z-index: 2;
   transition: color 0.2s;
+  margin-left: 0.5rem;
 }
 .mobile-auth-modal-close:hover {
   color: #ffd6fa;
@@ -268,9 +285,74 @@
   margin-top: 0.2rem;
 }
 
+/* --- Login/Register button --- */
+.mobile-login-btn {
+  width: 100%;
+  background: #ffb32c;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.13rem;
+  border-radius: 12px;
+  border: none;
+  padding: 0.95rem 0;
+  margin: 0 0 18px 0;
+  box-shadow: 0 2px 8px rgba(80,80,160,0.08);
+  letter-spacing: 0.01em;
+  transition: background 0.2s, color 0.2s;
+}
+.mobile-login-btn:hover {
+  background: #ffa500;
+  color: #fff;
+}
+
+/* --- Menu items (Nav) --- */
+.mobile-menu-content .nav {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+/* --- Social icons row --- */
+.mobile-menu-social-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.3rem;
+  margin: 2.2rem 0 1.2rem 0;
+}
+.mobile-menu-social-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--site-primary, #ff9800);
+  border: 1.5px solid #e0e0e0;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.mobile-menu-social-icon:hover {
+  background: var(--site-primary-light, #ffe0b2);
+  color: #fff;
+  border: 1.5px solid var(--site-primary, #ff9800);
+}
+
+/* --- Google Play badge --- */
+.mobile-menu-google-play {
+  display: flex;
+  justify-content: center;
+  margin: 1.2rem 0 1.2rem 0;
+}
+.google-play-badge {
+  width: 140px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(80,80,160,0.08);
+}
+
 @media (max-width: 480px) {
   .mobile-auth-modal {
-    max-width: 99vw;
+    max-width: 89vw;
     border-radius: 0;
   }
   .mobile-auth-modal-header {
@@ -281,4 +363,90 @@
   .mobile-auth-modal-body {
     padding: 1.2rem 0.2rem 1.2rem 0.2rem;
   }
+  .mobile-menu-content {
+    max-width: 99vw;
+    border-radius: 0;
+    padding: 10px 0 0 0;
+    border-radius: 5px;
+  }
+  .mobile-login-btn {
+    font-size: 1rem;
+    padding: 0.7rem 0;
+    margin: 0 8px 14px 8px;
+  }
+  .google-play-badge {
+    width: 110px;
+  }
+}
+
+.mobile-menu-top-btn {
+  width: 100%;
+  background: var(--site-primary);
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.13rem;
+  border-radius: 12px;
+  border: none;
+  margin: 18px 0;
+  box-shadow: 0 2px 8px rgba(80,80,160,0.08);
+  letter-spacing: 0.01em;
+  transition: background 0.2s, color 0.2s;
+  position: relative;
+  z-index: 3;
+}
+.mobile-menu-top-btn:hover {
+  background: #ffa500;
+  color: #fff;
+}
+
+.mobile-menu-publish-btn {
+  width: 100%;
+  background: #ffb32c;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.13rem;
+  border-radius: 12px;
+  border: none;
+  margin: 18px 0;
+  box-shadow: 0 2px 8px rgba(80,80,160,0.08);
+  letter-spacing: 0.01em;
+  transition: background 0.2s, color 0.2s;
+  position: relative;
+  z-index: 3;
+}
+.mobile-menu-publish-btn:hover {
+  background: #ffa500;
+  color: #fff;
+}
+
+.mobile-menu-inner-container {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 38px;
+}
+
+.mobile-menu-logout-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #222;
+  font-size: 1.08rem;
+  font-weight: 500;
+  text-align: right;
+  padding: 0.85rem 0;
+  border-top: 1.5px dotted #e0e0e0;
+  border-bottom: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.mobile-menu-logout-btn:hover {
+  color: var(--site-primary, #ffb32c);
+  background: #f9f9f9;
+}
+
+.logout-icon {
+  margin-left: 8px;
+  font-size: 1.1em;
+  vertical-align: middle;
+  color: #bbbbbb;
 }
